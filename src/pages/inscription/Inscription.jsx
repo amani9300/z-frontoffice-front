@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button, Container } from 'react-bootstrap';
 
 export default function Inscription() {
   const [nom, setnom] = useState("");
@@ -20,42 +21,53 @@ export default function Inscription() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <Container className="Auth-form-container">
+      <form className="Auth-form" onSubmit={handleSubmit}>
+      <div className="Auth-form-content">
+      <h3 className="Auth-form-title">Inscription</h3>
+      <div className="form-group mt-3">
+      <label> Nom </label>
         <input
           type="text"
-          placeholder="nom"
+          className="form-control mt-1"
+          placeholder="Entrez votre nom"
           value={nom}
           onChange={(e) => setnom(e.target.value)}
         />
-        <br />
-        <br />
+        </div>
+        <div className="form-group mt-3">
+        <label> Prénom </label>
         <input
           type="text"
-          placeholder="prenom"
+          className="form-control mt-1"
+          placeholder="Entrez votre prénom"
           value={prenom}
           onChange={(e) => setprenom(e.target.value)}
         />
-        <br />
-        <br />
+        </div>
+        <label>Email address</label>
         <input
-          type="text"
-          placeholder="email"
+          type="email"
+          className="form-control mt-1"
+          placeholder="Entrez votre Adresse Email"
           value={email}
           onChange={(e) => setemail(e.target.value)}
         />
-        <br />
-        <br />
+        <div className="form-group mt-3">
+          <label>Mot de passe</label>
         <input
           type="password"
-          placeholder="password"
+          className="form-control mt-1"
+          placeholder="Entrez votre mot de passe"
           value={password}
           onChange={(e) => setpassword(e.target.value)}
         />
-        <br />
-        <br />
-        <button>S'inscrire</button>
+        </div>
+        <div className="d-grid gap-2 mt-3">
+        <Button type="submit"  variant="primary" size="lg" className="btn btn-primary">S'inscrire</Button>
+      </div>
+      </div>
       </form>
-    </div>
+    </Container>
   );
 }

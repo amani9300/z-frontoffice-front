@@ -60,7 +60,7 @@ export default function ListProduit({
       <img src={produit.photoProduit} alt="" style={style.img} />
       <h1> {produit.nom} </h1>
       <p> {produit.prix} € </p>
-      <p> Quantité disponible: {produite.qteDispo} </p>
+      <p> Quantité disponible: {produit.qteDispo} </p>
       <p> {produit.description} </p>
       <button onClick={() => deleteProduit(produit._id)}> delete </button>
       <button onClick={() => updateForm(produit)}> update </button>

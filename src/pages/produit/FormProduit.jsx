@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-
+import { Button, Container } from 'react-bootstrap';
 export default function FormProduit({
   listProduit,
   setlistProduit,
@@ -74,47 +74,60 @@ export default function FormProduit({
   };
 
   return (
-    <div>
-      <div>
+      
+       <div className="Auth-form-content">
+      <h3 className="Auth-form-title">Créer un produit</h3>
+
+      
+    
+      <div className="form-group mt-3">
+      
         <input
           type="text"
-          placeholder="nom"
+          placeholder="Entrez le nom du produit"
           value={nom}
           onChange={(e) => setnom(e.target.value)}
         />
-        <br />
-        <br />
+        
+        <div className="form-group mt-3">
         <input
           type="text"
-          placeholder="prix"
+          placeholder="Entrez le prix du produit"
           value={prix}
           onChange={(e) => setprix(e.target.value)}
         />
-        <br />
-        <br />
+        
+        <div className="form-group mt-3">
         <input
           type="text"
-          placeholder="quantité disponible"
+          placeholder="Entrer la quantité disponible"
           value={qteDispo}
           onChange={(e) => setqteDispo(e.target.value)}
         />
-        <br />
-        <br />
-        <input
+       
+        <div className="form-group mt-3">
+          <input
           type="text"
-          placeholder="description"
+          placeholder="Saisir une description pour le produit "
           value={description}
           onChange={(e) => setdescription(e.target.value)}
         />
-        <br />
-        <br />
+      
         <input type="file" onChange={(e) => setfile(e.target.files[0])} />
 
-        <br />
-        <br />
-        <button onClick={createProduit}>Créer le produit </button>
-        <button onClick={updateProduit}>Update le produit </button>
+        
+        <div className="d-grid  ">
+        <Button  className="btn btn-primary" onClick={createProduit}>Créer le produit </Button>
+        </div>
+        <div className="d-grid gap-2 mt-3">
+        <Button  className="btn btn-primary" onClick={updateProduit}>Update le produit </Button>
+      </div>
       </div>
     </div>
+    </div>
+    </div>
+    </div>
+ 
+    
   );
 }
