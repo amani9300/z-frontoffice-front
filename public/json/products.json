@@ -1,0 +1,15 @@
+[{
+        "nom": "toto",
+        "prix": "30$",
+        "qteDispo": 30,
+        "description": "hello world",
+        "id": 1
+    },
+    {
+        "nom": "toto 2",
+        "prix": "50$",
+        "qteDispo": 20,
+        "description": "hello world 2",
+        "id": 2
+    }
+]
