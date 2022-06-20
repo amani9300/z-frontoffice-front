@@ -26,14 +26,14 @@ export default function Header() {
        {token === "" ? (
          <><Nav.Link className="navbar-nav mr-auto" href="/"> Connexion </Nav.Link>
          <Nav.Link className="navbar-nav mr-auto" href="/inscription">Inscription </Nav.Link>
-         <Nav.Link className="navbar-nav mr-auto" href="/produit"> Produit </Nav.Link>
-         <Nav.Link className="navbar-nav mr-auto" href="/listproduit"> Liste des Produits </Nav.Link>
         
       
       </>
      ) : (
        <>
         
+        <Nav.Link className="navbar-nav mr-auto" href="/produit"> Produit </Nav.Link>
+
         <NavLink className="navbar-nav mr-auto" to="/" onClick={logout}>
           Logout
         </ NavLink> 

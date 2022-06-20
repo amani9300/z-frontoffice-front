@@ -1,0 +1,11 @@
+// change the theme
+$theme-colors: (
+--ion-color-primary: #287fb8,
+--ion-color-secondary: #f49c21,
+
+  "danger": #ff4136
+);
+
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';

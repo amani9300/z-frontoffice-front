@@ -22,6 +22,7 @@ export default function ListProduit({
       .then((res) => setlistProduit(res.data))
       .catch((err) => console.log(err.response));
   }, [setlistProduit]);
+  
 
   // Supprimer un produit
   const deleteProduit = (id) => {

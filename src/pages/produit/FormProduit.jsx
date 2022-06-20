@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Button, Container } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 export default function FormProduit({
   listProduit,
   setlistProduit,
@@ -117,8 +117,11 @@ export default function FormProduit({
 
         
         <div className="d-grid  ">
+          <br/>
         <Button  className="btn btn-primary" onClick={createProduit}>Créer le produit </Button>
         </div>
+        <br/>
+        
         <div className="d-grid gap-2 mt-3">
         <Button  className="btn btn-primary" onClick={updateProduit}>Update le produit </Button>
       </div>

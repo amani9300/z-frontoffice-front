@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-// import Stock from "./pages/stock/Stock";
 import Inscription from "./pages/inscription/Inscription";
 import Connexion from "./pages/connexion/Connexion";
 import Produit from "./pages/produit/Produit";
 import DetailProduit from "./pages/detailProduit/DetailProduit"
-import ListProduit from "./pages/produit/Produit"
 import AuthContext from "./AuthContext";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -29,7 +27,6 @@ export default function App() {
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/produit" element={<Produit />} />
         <Route path="/produit/:id" element={<DetailProduit />} />
-        <Route path="/listproduit" element={<ListProduit />} />
 
         
         
