@@ -22,11 +22,15 @@ export default function Connexion() {
     const user = { email, password };
     setloading(true);
     axios
-      .post("/api/user/login", user)
+      .get("/json/login.json", user)
       .then((res) => {
-        localStorage.setItem("token", res.data);
+        if (res.data && res.data.token){
+          localStorage.setItem("token", res.data.token);
         setToken(res.data);
-        navigate("/");
+        navigate("/produit");
+        return ;
+        }
+        seterror(true);
       })
       .catch((err) => seterror(true))
       .finally(() => setloading(false));
@@ -48,6 +52,7 @@ export default function Connexion() {
           placeholder="Entez votre email"
           value={email}
           onChange={(e) => setemail(e.target.value)}
+          required
         />
         </div>
         
@@ -60,6 +65,7 @@ export default function Connexion() {
           placeholder="Entez votre mot de passe"
           value={password}
           onChange={(e) => setpassword(e.target.value)}
+          required
         />
         </div>
         

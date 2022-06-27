@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState} from "react";
 
 export default function ListProduit({
+
   listProduit,
   setlistProduit,
   setnom,
@@ -9,7 +10,8 @@ export default function ListProduit({
   setqteDispo,
   setidProduit,
   setdescription,
-}) {
+}
+) {
   // Récuperer la liste des produits de l'utilisateur connecté
   useEffect(() => {
     const config = {
@@ -18,7 +20,7 @@ export default function ListProduit({
       },
     };
     axios
-      .get("/api/produit/produitUser", config)
+      .get("/json/products.json", config)
       .then((res) => setlistProduit(res.data))
       .catch((err) => console.log(err.response));
   }, [setlistProduit]);
@@ -57,14 +59,23 @@ export default function ListProduit({
   };
 
   const affichageListe = listProduit.map((produit) => (
+    <div class="container">
+        <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card"></div>
     <div key={produit._id}>
-      <img src={produit.photoProduit} alt="" style={style.img} />
-      <h1> {produit.nom} </h1>
-      <p> {produit.prix} € </p>
-      <p> Quantité disponible: {produit.qteDispo} </p>
-      <p> {produit.description} </p>
-      <button onClick={() => deleteProduit(produit._id)}> delete </button>
-      <button onClick={() => updateForm(produit)}> update </button>
+      <img class="card-img-top" src={produit.photoProduit} alt="" style={style.img} />
+      <div class="card-body">
+      <h5 class="card-title"> {produit.nom} </h5>
+      <p class="card-text"> {produit.prix} € </p>
+      <p class="card-text"> Quantité disponible: {produit.qteDispo} </p>
+      <p class="card-text"> {produit.description} </p>
+      <button class="btn btn-primary" onClick={() => deleteProduit(produit._id)}> delete </button>
+      <button class="btn btn-primary" onClick={() => updateForm(produit)}> update </button>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
   ));
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FormProduit from "./FormProduit";
 import ListProduit from "./ListProduit";
 
-export default function Produite() {
+export default function Produit() {
   const [listProduit, setlistProduit] = useState([]);
   const [nom, setnom] = useState("");
   const [prix, setprix] = useState("");
