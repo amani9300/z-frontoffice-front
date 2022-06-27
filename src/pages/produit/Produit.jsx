@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import FormProduit from "./FormProduit";
-import ListProduit from "./ListProduit";
+import React, { useState } from 'react';
+
+import FormProduit from './FormProduit';
 
 export default function Produit() {
   const [listProduit, setlistProduit] = useState([]);
@@ -28,7 +28,7 @@ export default function Produit() {
         idProduit={idProduit}
         setidProduit={setidProduit}
       />
-      <ListProduit
+      {/* <ListProduit
         listProduit={listProduit}
         setlistProduit={setlistProduit}
         setnom={setnom}
@@ -37,7 +37,7 @@ export default function Produit() {
         setdescription={setdescription}
         setfile={setfile}
         setidProduit={setidProduit}
-      />
+      /> */}
     </div>
   );
 }

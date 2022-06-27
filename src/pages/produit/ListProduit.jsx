@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState} from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 export default function ListProduit({
 
@@ -24,7 +24,7 @@ export default function ListProduit({
       .then((res) => setlistProduit(res.data))
       .catch((err) => console.log(err.response));
   }, [setlistProduit]);
-  
+
 
   // Supprimer un produit
   const deleteProduit = (id) => {
@@ -59,23 +59,23 @@ export default function ListProduit({
   };
 
   const affichageListe = listProduit.map((produit) => (
-    <div class="container">
-        <div class="row g-3">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card"></div>
-    <div key={produit._id}>
-      <img class="card-img-top" src={produit.photoProduit} alt="" style={style.img} />
-      <div class="card-body">
-      <h5 class="card-title"> {produit.nom} </h5>
-      <p class="card-text"> {produit.prix} € </p>
-      <p class="card-text"> Quantité disponible: {produit.qteDispo} </p>
-      <p class="card-text"> {produit.description} </p>
-      <button class="btn btn-primary" onClick={() => deleteProduit(produit._id)}> delete </button>
-      <button class="btn btn-primary" onClick={() => updateForm(produit)}> update </button>
-    </div>
-    </div>
-    </div>
-    </div>
+    <div className="container">
+      <div className="row g-3">
+        <div className="col-12 col-md-6 col-lg-4">
+          <div className="card"></div>
+          <div key={produit._id}>
+            <img className="card-img-top" src={produit.photoProduit} alt="" style={style.img} />
+            <div className="card-body">
+              <h5 className="card-title"> {produit.nom} </h5>
+              <p className="card-text"> {produit.prix} € </p>
+              <p className="card-text"> Quantité disponible: {produit.qteDispo} </p>
+              <p className="card-text"> {produit.description} </p>
+              <button className="btn btn-primary" onClick={() => deleteProduit(produit._id)}> delete </button>
+              <button className="btn btn-primary" onClick={() => updateForm(produit)}> update </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ));
 
