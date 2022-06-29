@@ -28,7 +28,7 @@ export default function Connexion() {
         if (res.data && res.data.token) {
           localStorage.setItem("token", res.data.token);
           setToken(res.data.token);
-          navigate("/produit");
+          navigate("/produit/listProduit");
           return;
         }
         seterror(true);

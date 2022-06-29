@@ -28,16 +28,7 @@ export default function Produit() {
         idProduit={idProduit}
         setidProduit={setidProduit}
       />
-      {/* <ListProduit
-        listProduit={listProduit}
-        setlistProduit={setlistProduit}
-        setnom={setnom}
-        setprix={setprix}
-        setqteDispo={setqteDispo}
-        setdescription={setdescription}
-        setfile={setfile}
-        setidProduit={setidProduit}
-      /> */}
+      
     </div>
   );
 }

@@ -3,10 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
-import ListContext from './contexts/ListContext';
 import Connexion from './pages/connexion/Connexion';
 import DetailProduit from './pages/detailProduit/DetailProduit';
 import Inscription from './pages/inscription/Inscription';
@@ -15,10 +13,9 @@ import Produit from './pages/produit/Produit';
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [listProduit, setlistProduit] = useState([]);
 
   return (
-    <ListContext.Provider value={{ listProduit, setlistProduit }}>
+    
       <AuthContext.Provider value={{ token, setToken }}>
         <Header />
 
@@ -26,11 +23,11 @@ export default function App() {
           <Route path="/auth" element={<Connexion />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/produit" element={<Produit />} />
-          <Route path="/produit/ListProduit" element={<ListProduit />} />
+          <Route path="/produit/ListProduit" element={<ListProduit  />} />
           <Route path="/produit/:id" element={<DetailProduit />} />
         </Routes>
 
       </AuthContext.Provider>
-    </ListContext.Provider>
+    
   )
 }

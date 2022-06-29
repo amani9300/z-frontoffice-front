@@ -29,7 +29,7 @@ export default function Header() {
             ) : (
               <>
                 <Nav.Link className="navbar-nav mr-auto" href="/produit"> Produit </Nav.Link>
-                <Nav.Link className="navbar-nav mr-auto" href="/listProduit"> Liste des Produits </Nav.Link>
+                <Nav.Link className="navbar-nav mr-auto" href="/produit/listProduit"> Liste des Produits </Nav.Link>
                 <Nav.Link className="navbar-nav mr-auto" to="/" onClick={logout}>Logout</ Nav.Link>
               </>
             )}

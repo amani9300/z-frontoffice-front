@@ -1,19 +1,21 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
+import {Link} from 'react-router-dom'
 
 export default function ListProduit({
 
-  listProduit,
-  setlistProduit,
+  
   setnom,
   setprix,
   setqteDispo,
   setidProduit,
   setdescription,
-}
-) {
+}) {
+
+  const [listProduit, setlistProduit]= useState([])
   // Récuperer la liste des produits de l'utilisateur connecté
   useEffect(() => {
+    console.log('listProduit')
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -51,33 +53,30 @@ export default function ListProduit({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const style = {
-    img: {
-      width: "300px",
-      height: "300px",
-    },
-  };
+  // const style = {
+  //   img: {
+  //     width: "300px",
+  //     height: "300px",
+  //   },
+  // };
 
   const affichageListe = listProduit.map((produit) => (
-    <div className="container">
-      <div className="row g-3">
-        <div className="col-12 col-md-6 col-lg-4">
-          <div className="card"></div>
-          <div key={produit._id}>
-            <img className="card-img-top" src={produit.photoProduit} alt="" style={style.img} />
-            <div className="card-body">
-              <h5 className="card-title"> {produit.nom} </h5>
-              <p className="card-text"> {produit.prix} € </p>
-              <p className="card-text"> Quantité disponible: {produit.qteDispo} </p>
-              <p className="card-text"> {produit.description} </p>
-              <button className="btn btn-primary" onClick={() => deleteProduit(produit._id)}> delete </button>
-              <button className="btn btn-primary" onClick={() => updateForm(produit)}> update </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+   <div className="card my-3">
+  <div className="card-body">
+
+    <h5 className="card-title">{produit.nom}</h5>
+    <h6 className="card-subtitle mb-2 text-muted">Prix:{produit.prix}</h6>
+    <p className="card-text">{produit.description}</p>
+    <img className="card-img-top" src={produit.photoProduit} alt="produit"/> 
+   <Link to={`/produit/${produit.id}`} key={produit.id}>{produit.nom}</Link>
+
+   <button className="btn btn-primary" onClick={() => deleteProduit(produit._id)}> delete </button>
+                 <button className="btn btn-primary" onClick={() => updateForm(produit)}> update </button> 
+  </div>
+</div>
   ));
 
-  return <div>{affichageListe}</div>;
+ 
+  return <div className="container">
+  {affichageListe}</div>;
 }
