@@ -1,6 +1,5 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
@@ -15,6 +14,9 @@ export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   return (
+   <div className="App"> 
+
+      
     
       <AuthContext.Provider value={{ token, setToken }}>
         <Header />
@@ -28,6 +30,6 @@ export default function App() {
         </Routes>
 
       </AuthContext.Provider>
-    
+    </div>
   )
 }

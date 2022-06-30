@@ -61,19 +61,33 @@ export default function ListProduit({
   // };
 
   const affichageListe = listProduit.map((produit) => (
-   <div className="card my-3">
-  <div className="card-body">
+    <div className="card my-3">
+      <div className="card-body">
+        <h5 className="card-title">{produit.nom}</h5>
+        <h6 className="card-subtitle mb-2 text-muted">Prix:{produit.prix}</h6>
+        <p className="card-text">{produit.description}</p>
+        <img
+          className="card-img-top"
+          src={produit.photoProduit}
+          alt="produit"
+        />
+        <Link to={`/produit/${produit.id}`} key={produit.id}>
+          {produit.nom}
+        </Link>
 
-    <h5 className="card-title">{produit.nom}</h5>
-    <h6 className="card-subtitle mb-2 text-muted">Prix:{produit.prix}</h6>
-    <p className="card-text">{produit.description}</p>
-    <img className="card-img-top" src={produit.photoProduit} alt="produit"/> 
-   <Link to={`/produit/${produit.id}`} key={produit.id}>{produit.nom}</Link>
-
-   <button className="btn btn-primary" onClick={() => deleteProduit(produit._id)}> delete </button>
-                 <button className="btn btn-primary" onClick={() => updateForm(produit)}> update </button> 
-  </div>
-</div>
+        <button
+          className="btn btn-primary"
+          onClick={() => deleteProduit(produit._id)}
+        >
+          {" "}
+          delete{" "}
+        </button>
+        <button className="btn btn-primary" onClick={() => updateForm(produit)}>
+          {" "}
+          update{" "}
+        </button>
+      </div>
+    </div>
   ));
 
  

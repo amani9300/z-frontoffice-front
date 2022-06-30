@@ -25,8 +25,9 @@
   padding: 10px 10px;
   margin-bottom: 20px;
 }
-App {
-  background-color:white;
+.App {
+  background-color:rgb(244, 156, 33);
+  /* background-color:#287fb8; */
 }
 
 .Auth-form-container {

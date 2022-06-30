@@ -74,63 +74,71 @@ export default function FormProduit({
   };
 
   return (
-      
-       <div className="Auth-form-content">
+    <div className="Auth-form-content">
       <h3 className="Auth-form-title">Créer un produit</h3>
 
-      
-    
       <div className="form-group mt-3">
-      
         <input
           type="text"
           placeholder="Entrez le nom du produit"
           value={nom}
           onChange={(e) => setnom(e.target.value)}
         />
-        
-        <div className="form-group mt-3">
-        <input
-          type="text"
-          placeholder="Entrez le prix du produit"
-          value={prix}
-          onChange={(e) => setprix(e.target.value)}
-        />
-        
-        <div className="form-group mt-3">
-        <input
-          type="text"
-          placeholder="Entrer la quantité disponible"
-          value={qteDispo}
-          onChange={(e) => setqteDispo(e.target.value)}
-        />
-       
+
         <div className="form-group mt-3">
           <input
-          type="text"
-          placeholder="Saisir une description pour le produit "
-          value={description}
-          onChange={(e) => setdescription(e.target.value)}
-        />
-      
-        <input type="file" onChange={(e) => setfile(e.target.files[0])} />
+            type="text"
+            placeholder="Entrez le prix du produit"
+            value={prix}
+            onChange={(e) => setprix(e.target.value)}
+          />
 
-        
-        <div className="d-grid  ">
-          <br/>
-        <Button  className="btn btn-primary" onClick={createProduit}>Créer le produit </Button>
+          <div className="form-group mt-3">
+            <input
+              type="text"
+              placeholder="Entrer la quantité disponible"
+              value={qteDispo}
+              onChange={(e) => setqteDispo(e.target.value)}
+            />
+
+            <div className="form-group mt-3">
+            <label for="formSm" class="form-label">
+                  Ajouter description     
+                </label>
+              <input
+                type="text"
+                placeholder="Saisir une description pour le produit "
+                value={description}
+                onChange={(e) => setdescription(e.target.value)}
+              />
+              
+              <div class="mb-3">
+                <label for="formFileSm" class="form-label">
+                  Ajouter une photo du produit
+                </label>
+                <input
+                  class="form-control form-control-sm"
+                  id="formFileSm"
+                  type="file"
+                  onChange={(e) => setfile(e.target.files[0])}
+                />
+              </div>
+              <div className="d-grid  ">
+                <br />
+                <Button className="btn btn-primary" onClick={createProduit}>
+                  Créer le produit{" "}
+                </Button>
+              </div>
+              <br />
+              <div className="d-grid gap-2 mt-3">
+                <Button className="btn btn-primary" onClick={updateProduit}>
+                  Update le produit{" "}
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
-        <br/>
-        
-        <div className="d-grid gap-2 mt-3">
-        <Button  className="btn btn-primary" onClick={updateProduit}>Update le produit </Button>
-      </div>
       </div>
     </div>
-    </div>
-    </div>
-    </div>
- 
-    
   );
 }

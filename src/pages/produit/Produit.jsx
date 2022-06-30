@@ -28,7 +28,6 @@ export default function Produit() {
         idProduit={idProduit}
         setidProduit={setidProduit}
       />
-      
     </div>
   );
 }
