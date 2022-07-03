@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
-import Spinner from "../../components/Spinner";
+import Spinner from "../components/Spinner";
 
 export default function DetailAnnonce() {
   const { id } = useParams();
