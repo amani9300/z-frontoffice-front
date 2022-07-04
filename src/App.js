@@ -19,7 +19,7 @@ export default function App() {
       <AuthContext.Provider value={{ token, setToken }}>
         {
          !!token === true ? <Header /> : null 
-        }        
+        }
 
         <Routes>
           <Route path="/auth" element={<Connexion />} />

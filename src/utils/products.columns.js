@@ -12,10 +12,7 @@ export const PRODUCTS_COLUMNS = [
         name: 'Name',
         selector: row => row.name,
         sortable: true,
-    },
-    {
-        name: 'Description',
-        selector: row => row.description,
+        width: "300px"
     },
     {
         name: 'Quantity',

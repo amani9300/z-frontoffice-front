@@ -13,7 +13,6 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AuthContext from '../contexts/AuthContext';
-import Icon from '@mui/material/Icon';
 
 export default function Header() {
   const { token, setToken } = React.useContext(AuthContext);

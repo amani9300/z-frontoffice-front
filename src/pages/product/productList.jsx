@@ -8,48 +8,12 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import Checkbox from "@mui/material/Checkbox";
+import SortIcon from "@mui/icons-material/ArrowDownward";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AppBar from "@material-ui/core/AppBar";
-import { DataGrid } from "@mui/x-data-grid";
 import { PRODUCTS_COLUMNS } from '../../utils/products.columns';
-
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "firstName",
-    headerName: "First name",
-    width: 150,
-    editable: true
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    width: 150,
-    editable: true
-  },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 110,
-    editable: true
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`
-  }
-];
-
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 }
-];
+import DataTable from 'react-data-table-component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const listColumns = PRODUCTS_COLUMNS;
+
 export default function ListProduit({
   setnom,
   setprix,
@@ -82,7 +48,7 @@ export default function ListProduit({
 }) {
   const classes = useStyles();
 
-  const [listProduit, setlistProduit] = useState([])
+  const [listProducts, setlistProduit] = useState([])
   // Récuperer la liste des produits de l'utilisateur connecté
   useEffect(() => {
     console.log('listProduit')
@@ -108,10 +74,14 @@ export default function ListProduit({
     axios
       .delete(`/api/produit/${id}`, config)
       .then((res) => {
-        setlistProduit(listProduit.filter((produit) => produit._id !== id));
+        setlistProduit(listProducts.filter((produit) => produit._id !== id));
       })
       .catch((err) => console.log(err.response));
   };
+
+  const isIndeterminate = (indeterminate) => indeterminate;
+  const selectableRowsComponentProps = { indeterminate: isIndeterminate };
+
 
   // Mettre à jours le formulaire
   const updateForm = (produit) => {
@@ -122,8 +92,8 @@ export default function ListProduit({
     setidProduit(produit._id);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  
-  // const columns = PRODUCTS_COLUMNS;
+
+  const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
 
   return (
     <div className={classes.root}>
@@ -139,26 +109,40 @@ export default function ListProduit({
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            My App
+            Centimoo Stock Management
           </Typography>
         </Toolbar>
       </AppBar>
+
       <Paper className={classes.content}>
         <div className={classes.toolbar}>
           <Typography variant="h6" component="h2" color="primary">
-            Users
+            Products
           </Typography>
           <Button
             variant="outlined"
             color="secondary"
-            startIcon={<PersonAddIcon />}
+            startIcon={<ShoppingCartIcon />}
           >
-            New User
+            New Product
           </Button>
         </div>
-        <div style={{ height: 300, width: "100%" }}>
-          <DataGrid rows={rows} columns={columns} checkboxSelection />
-        </div>
+
+        <DataTable
+          columns={listColumns}
+          data={listProducts}
+          defaultSortField="name"
+          sortIcon={<SortIcon />}
+          fixedHeader
+          fixedHeaderScrollHeight="80vh"
+          pagination
+          responsive
+          subHeaderAlign="right"
+          subHeaderWrap
+          selectableRows
+          selectableRowsComponent={Checkbox}
+          selectableRowsComponentProps={selectableRowsComponentProps}
+        />
       </Paper>
     </div>
   )
