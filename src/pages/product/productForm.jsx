@@ -1,30 +1,71 @@
 import { Button } from "@material-ui/core";
 import axios from "axios";
 import React from "react";
-export default function FormProduit({
-  listProduit,
-  setlistProduit,
-  nom,
-  setnom,
-  prix,
-  setprix,
-  qteDispo,
-  setqteDispo,
-  description,
-  setdescription,
-  file,
-  setfile,
-  idProduit,
-  setidProduit,
+import { makeStyles } from '@material-ui/core/styles';
+import SaveIcon from '@material-ui/icons/Save';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
+export default function Formproduct({
+  listProducts,
+  setlistProducts,
+  id,
+   setid,
+  barcode, 
+setbarcode,
+ reference,
+  setreference,
+  name, 
+  setname,
+ purchasePrice, 
+ setpurchasePrice,
+  price, 
+  setprice,
+  includesTax, 
+  setincludesTax,
+  qty, 
+  setqty,
+  measure, 
+  setmeasure,
+  category,
+   setcategory,
+  vat,
+   setvat,
+  brand, 
+  setbrand,
+  supplier, 
+  setsupplier,
+  color, 
+  setcolor,
+  image, 
+  setimage,
 }) {
-  // Crée un produit
-  const createProduit = () => {
+  
+  const classes = useStyles();
+
+  // Crée un product
+  const createproduct = () => {
     let formData = new FormData();
-    formData.append("nom", nom);
-    formData.append("prix", prix);
-    formData.append("qteDispo", qteDispo);
-    formData.append("description", description);
-    formData.append("file", file);
+    formData.append("id", id);
+    formData.append("barcode", barcode);
+    formData.append("reference", reference);
+    formData.append("name", name);
+    formData.append(" purchasePrice", purchasePrice);
+    formData.append(" price", price);
+    formData.append(" includesTax", includesTax);
+    formData.append(" qty", qty);
+    formData.append(" measure", measure);
+    formData.append(" category", category);
+    formData.append(" vat", vat);
+    formData.append(" brand", brand);
+    formData.append("supplier", supplier);
+    formData.append("color", color);
+    formData.append("image", image);
+    
 
     const config = {
       headers: {
@@ -32,26 +73,47 @@ export default function FormProduit({
       },
     };
     axios
-      .post("/api/produit", formData, config)
+      .post("/api/product", formData, config)
       .then((res) => {
-        setlistProduit((listProduit) => [res.data, ...listProduit]);
-        setnom("");
-        setprix("");
-        setdescription("");
-        setqteDispo("");
-        setfile("");
+        setlistProducts((listProducts) => [res.data, ...listProducts]);
+      
+        setid("");
+        setbarcode("");
+        setreference("");
+        setname("");
+        setpurchasePrice("");
+        setprice("");
+        setincludesTax("");
+        setqty("");
+        setmeasure("");
+        setcategory("");
+        setvat("");
+        setbrand("");
+        setsupplier("");
+        setcolor("");
+        setimage("");
       })
       .catch((err) => console.log(err.response));
   };
 
-  // Mettre à jours un produit
-  const updateProduit = () => {
+  // Mettre à jours un product
+  const updateproduct = () => {
     let formData = new FormData();
-    formData.append("nom", nom);
-    formData.append("prix", prix);
-    formData.append("qteDispo", qteDispo);
-    formData.append("description", description);
-    formData.append("file", file);
+    formData.append("id", id);
+    formData.append("barcode", barcode);
+    formData.append("reference", reference);
+    formData.append("name", name);
+    formData.append(" purchasePrice", purchasePrice);
+    formData.append(" price", price);
+    formData.append(" includesTax", includesTax);
+    formData.append(" qty", qty);
+    formData.append(" measure", measure);
+    formData.append(" category", category);
+    formData.append(" vat", vat);
+    formData.append(" brand", brand);
+    formData.append("supplier", supplier);
+    formData.append("color", color);
+    formData.append("image", image);
 
     const config = {
       headers: {
@@ -59,81 +121,153 @@ export default function FormProduit({
       },
     };
     axios
-      .put(`/api/produit/${idProduit}`, formData, config)
+      .put(`/api/product/${id}`, formData, config)
       .then((res) => {
-        const tmp = listProduit.filter((produit) => produit._id !== idProduit);
-        setlistProduit([res.data, ...tmp]);
-        setnom("");
-        setprix("");
-        setdescription("");
-        setqteDispo("");
-        setfile("");
-        setidProduit("");
+        const tmp = listProducts.filter((product) => product._id !== id);
+        setlistProducts([res.data, ...tmp]);
+        setid("");
+        setbarcode("");
+        setreference("");
+        setname("");
+        setpurchasePrice("");
+        setprice("");
+        setincludesTax("");
+        setqty("");
+        setmeasure("");
+        setcategory("");
+        setvat("");
+        setbrand("");
+        setsupplier("");
+        setcolor("");
+        setimage("");
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="Auth-form-content">
-      <h3 className="Auth-form-title">Créer un produit</h3>
+      <h3 className="Auth-form-title">Create product</h3>
 
       <div className="form-group mt-3">
         <input
           type="text"
-          placeholder="Entrez le nom du produit"
-          value={nom}
-          onChange={(e) => setnom(e.target.value)}
+          placeholder="Enter le name du product"
+          value={name}
+          onChange={(e) => setname(e.target.value)}
         />
-
         <div className="form-group mt-3">
           <input
             type="text"
-            placeholder="Entrez le prix du produit"
-            value={prix}
-            onChange={(e) => setprix(e.target.value)}
+            placeholder="Enter barcode of product"
+            value={barcode}
+            onChange={(e) => setbarcode(e.target.value)}
           />
 
           <div className="form-group mt-3">
             <input
               type="text"
-              placeholder="Entrer la quantité disponible"
-              value={qteDispo}
-              onChange={(e) => setqteDispo(e.target.value)}
+              placeholder="Enter reference of product"
+              value={reference}
+              onChange={(e) => setreference(e.target.value)}
             />
 
             <div className="form-group mt-3">
-            <label for="formSm" class="form-label">
-                  Ajouter description     
-                </label>
               <input
                 type="text"
-                placeholder="Saisir une description pour le produit "
-                value={description}
-                onChange={(e) => setdescription(e.target.value)}
+                placeholder="Enter purchasePrice "
+                value={purchasePrice}
+                onChange={(e) => setpurchasePrice(e.target.value)}
               />
-              
-              <div class="mb-3">
-                <label for="formFileSm" class="form-label">
-                  Ajouter une photo du produit
-                </label>
+
+              <div className="form-group mt-3">
                 <input
-                  class="form-control form-control-sm"
-                  id="formFileSm"
-                  type="file"
-                  onChange={(e) => setfile(e.target.files[0])}
+                  type="text"
+                  placeholder="Enter price product "
+                  value={price}
+                  onChange={(e) => setprice(e.target.value)}
                 />
+
+                <input
+                  type="text"
+                  placeholder="Enter includesTax product "
+                  value={includesTax}
+                  onChange={(e) => setincludesTax(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter qty of product "
+                  value={qty}
+                  onChange={(e) => setqty(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter measure of product "
+                  value={measure}
+                  onChange={(e) => setmeasure(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter category of product "
+                  value={category}
+                  onChange={(e) => setcategory(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter vat "
+                  value={vat}
+                  onChange={(e) => setvat(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter brand of product "
+                  value={brand}
+                  onChange={(e) => setbrand(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter supplier "
+                  value={supplier}
+                  onChange={(e) => setsupplier(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter color of product"
+                  value={color}
+                  onChange={(e) => setcolor(e.target.value)}
+                />
+
+                <div class="mb-3">
+                  <label for="formFileSm" class="form-label">
+                    Add image of product
+                  </label>
+                  <input
+                    class="form-control form-control-sm"
+                    id="formFileSm"
+                    type="file"
+                    onChange={(e) => setimage(e.target.files[0])}
+                  />
+                </div>
               </div>
               <div className="d-grid  ">
                 <br />
-                <Button className="btn btn-primary" onClick={createProduit}>
-                  Créer le produit{" "}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  onClick={createproduct}
+                  className={classes.button}
+                  startIcon={<SaveIcon />}
+                >
+                  Save
                 </Button>
+                {/* <Button className="btn btn-primary" >
+                  Créer le product{" "}
+                </Button> */}
               </div>
+
               <br />
               <div className="d-grid gap-2 mt-3">
-                <Button className="btn btn-primary" onClick={updateProduit}>
-                  Update le produit{" "}
-                </Button>
+                <Button onClick={updateproduct}>Update le product </Button>
               </div>
             </div>
           </div>

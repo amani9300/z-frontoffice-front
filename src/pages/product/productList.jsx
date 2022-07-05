@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
@@ -10,10 +10,26 @@ import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import Checkbox from "@mui/material/Checkbox";
 import SortIcon from "@mui/icons-material/ArrowDownward";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AddIcon from '@mui/icons-material//Add';
 import AppBar from "@material-ui/core/AppBar";
 import { PRODUCTS_COLUMNS } from '../../utils/products.columns';
 import DataTable from 'react-data-table-component';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import ProductForm from './ProductForm';
+
+const style = {
+  position: 'absolute',
+  top: '55vh',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,19 +55,41 @@ const useStyles = makeStyles((theme) => ({
 
 const listColumns = PRODUCTS_COLUMNS;
 
-export default function ListProduit({
-  setnom,
-  setprix,
-  setqteDispo,
-  setidProduit,
-  setdescription,
+export default function listProducts({
+  // setnom,
+  // setprix,
+  // setqteDispo,
+  // setidproduct,
+  // setdescription,
 }) {
+
+  const [id, setid] = useState("");
+  const [barcode, setbarcode] = useState("");
+  const [reference, setreference] = useState("");
+  const [name, setname] = useState("");
+  const [description, setdescription] = useState("");
+  const [purchasePrice, setpurchasePrice] = useState("");
+  const [price, setprice] = useState("");
+  const [includesTax, setincludesTax] = useState("");
+  const [qty, setqty] = useState("");
+  const [measure, setmeasure] = useState("");
+  const [category, setcategory] = useState("");
+  const [vat, setvat] = useState("");
+  const [brand, setbrand] = useState("");
+  const [supplier, setsupplier] = useState("");
+  const [color, setcolor] = useState("");
+  const [image, setimage] = useState("");
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const classes = useStyles();
 
-  const [listProducts, setlistProduit] = useState([])
-  // Récuperer la liste des produits de l'utilisateur connecté
+  const [listProducts, setlistProducts] = useState([])
+  // Récuperer la liste des products de l'utilisateur connecté
   useEffect(() => {
-    console.log('listProduit')
+    console.log('listProducts')
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -59,22 +97,22 @@ export default function ListProduit({
     };
     axios
       .get("/json/products.json", config)
-      .then((res) => setlistProduit(res.data))
+      .then((res) => setlistProducts(res.data))
       .catch((err) => console.log(err.response));
-  }, [setlistProduit]);
+  }, [setlistProducts]);
 
 
-  // Supprimer un produit
-  const deleteProduit = (id) => {
+  // Supprimer un product
+  const deleteproduct = (id) => {
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     };
     axios
-      .delete(`/api/produit/${id}`, config)
+      .delete(`/api/product/${id}`, config)
       .then((res) => {
-        setlistProduit(listProducts.filter((produit) => produit._id !== id));
+        setlistProducts(listProducts.filter((product) => product._id !== id));
       })
       .catch((err) => console.log(err.response));
   };
@@ -84,12 +122,24 @@ export default function ListProduit({
 
 
   // Mettre à jours le formulaire
-  const updateForm = (produit) => {
-    setnom(produit.nom);
-    setprix(produit.prix);
-    setqteDispo(produit.qteDispo);
-    setdescription(produit.description);
-    setidProduit(produit._id);
+  const updateForm = (product) => {
+   
+    setid(product._id);
+        setbarcode(product.barcode);
+        setreference(product.reference);
+        setname(product.name);
+        setpurchasePrice(product.purchasePrice);
+        setprice(product.price);
+        setincludesTax(product.includesTax);
+        setqty(product.qty);
+        setmeasure(product.measure);
+        setcategory(product.category);
+        setvat(product.vat);
+        setbrand(product.brand);
+        setsupplier(product.supplier);
+        setcolor(product.color);
+        setimage(product.image);
+  
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -119,13 +169,45 @@ export default function ListProduit({
           <Typography variant="h6" component="h2" color="primary">
             Products
           </Typography>
+
           <Button
             variant="outlined"
             color="secondary"
-            startIcon={<ShoppingCartIcon />}
+            startIcon={<AddIcon/>}
+            onClick={handleOpen}
           >
             New Product
           </Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <div>
+                  <ProductForm
+                    // listProducts={listProducts}
+                    // setlistProductsss={setlistProductsss}
+                    name={name}
+                    setname={setname}
+                    price={price}
+                    setprice={setprice}
+                    qty={qty}
+                    setqty={setqty}
+                    description={description}
+                    setdescription={setdescription}
+                    image={image}
+                    setimage={setimage}
+                    id={id}
+                    setid={setid}
+                  />
+                </div>
+              </Typography>
+          
+            </Box>
+          </Modal>
         </div>
 
         <DataTable
@@ -145,5 +227,5 @@ export default function ListProduit({
         />
       </Paper>
     </div>
-  )
+  );
 }

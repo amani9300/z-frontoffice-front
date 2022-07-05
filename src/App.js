@@ -5,11 +5,10 @@ import { Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
-import Inscription from './pages/auth/signup';
-import Connexion from './pages/auth/signin';
+import Signup from './pages/auth/Signup';
+import Signin from './pages/auth/Signin';
 import NotFoundPage from './pages/NotFound';
-import ListProduit from './pages/product/productList';
-import DetailProduit from './pages/productDetails';
+import ProductList from './pages/product/ProductList';
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -22,12 +21,12 @@ export default function App() {
         }
 
         <Routes>
-          <Route path="/auth" element={<Connexion />} />
-          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/auth" element={<Signin />} />
+          <Route path="/inscription" element={<Signup />} />
           {/* <Route path="/produit" element={<Produit />} /> */}
-          <Route path="/" element={<ListProduit />} />
-          <Route path="/products" element={<ListProduit />} />
-          <Route path="/produits/:id" element={<DetailProduit />} />
+          <Route path="/" element={<ProductList />} />
+          <Route path="/products" element={<ProductList />} />
+          {/* <Route path="/produits/:id" element={<DetailProduit />} /> */}
           <Route path="*" component={NotFoundPage} />
         </Routes>
 

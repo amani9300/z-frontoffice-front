@@ -1,9 +1,8 @@
 import Logout from '@mui/icons-material/Logout';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
-import { Container, Link } from '@mui/material';
+import {  Link } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
@@ -13,6 +12,47 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AuthContext from '../contexts/AuthContext';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import { makeStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+
+
+
+
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'background.paper',
+//   border: '2px solid #000',
+//   boxShadow: 24,
+//   p: 4,
+// };
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
+  },
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: theme.spacing(2)
+  },
+  content: {
+    margin: theme.spacing(2),
+    padding: theme.spacing(2)
+  }
+}));
 
 export default function Header() {
   const { token, setToken } = React.useContext(AuthContext);
@@ -24,6 +64,8 @@ export default function Header() {
     navigate("/auth");
   };
 
+  const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -34,7 +76,9 @@ export default function Header() {
   };
 
   return (
-    <Container fixed>
+    // <Container fixed>
+    <div className={classes.root}>
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -96,7 +140,11 @@ export default function Header() {
           Logout
         </MenuItem>
       </Menu>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <div className={classes.root}>
+      <CssBaseline />
+      <AppBar position="static">
+      {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}> */}
+      <Toolbar>
         <Typography sx={{ minWidth: 100 }}>
           <Link
             href="#"
@@ -122,7 +170,12 @@ export default function Header() {
             Logout <LogoutIcon fontSize="inherit" />            
           </Link>
         </Typography>
-      </Box>
-    </Container>
+      {/* </Box> */}
+      </Toolbar>
+      </AppBar>
+      </div>
+    {/* </Container> */}
+    </div>
+
   );
 }
