@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import loginFrontPic from "../../assets/images/loginFrontPic.png";
 import AuthContext from "../../contexts/AuthContext";
 
-export default function Connexion() {
+export default function Signin() {
   const AppName = "Centimoo Stock Management";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

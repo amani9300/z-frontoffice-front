@@ -10,41 +10,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Formproduct({
+export default function ProductForm({
   listProducts,
   setlistProducts,
   id,
-   setid,
-  barcode, 
-setbarcode,
- reference,
+  setid,
+  barcode,
+  setbarcode,
+  reference,
   setreference,
-  name, 
+  name,
   setname,
- purchasePrice, 
- setpurchasePrice,
-  price, 
+  purchasePrice,
+  setpurchasePrice,
+  price,
   setprice,
-  includesTax, 
+  includesTax,
   setincludesTax,
-  qty, 
+  qty,
   setqty,
-  measure, 
+  measure,
   setmeasure,
   category,
-   setcategory,
+  setcategory,
   vat,
-   setvat,
-  brand, 
+  setvat,
+  brand,
   setbrand,
-  supplier, 
+  supplier,
   setsupplier,
-  color, 
+  color,
   setcolor,
-  image, 
+  image,
   setimage,
 }) {
-  
+
   const classes = useStyles();
 
   // Crée un product
@@ -65,7 +65,7 @@ setbarcode,
     formData.append("supplier", supplier);
     formData.append("color", color);
     formData.append("image", image);
-    
+
 
     const config = {
       headers: {
@@ -76,7 +76,7 @@ setbarcode,
       .post("/api/product", formData, config)
       .then((res) => {
         setlistProducts((listProducts) => [res.data, ...listProducts]);
-      
+
         setid("");
         setbarcode("");
         setreference("");

@@ -17,7 +17,7 @@ import DataTable from 'react-data-table-component';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import ProductForm from './productForm';
+import ProductForm from './ProductForm';
 
 const style = {
   position: 'absolute',
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 const listColumns = PRODUCTS_COLUMNS;
 
-export default function listProducts({
+export default function ProductList({
   // setnom,
   // setprix,
   // setqteDispo,

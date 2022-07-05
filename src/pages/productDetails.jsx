@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 
-export default function DetailAnnonce() {
+export default function ProductDetails() {
   const { id } = useParams();
   // const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ export default function DetailAnnonce() {
 
   return (
     <div>
-      DetailAnnonce
+      ProductDetails
       {loading && <Spinner />}
       {produit && (
          <div className="container">

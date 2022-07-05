@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Inscription() {
+export default function Signup() {
   const [nom, setnom] = useState("");
   const [prenom, setprenom] = useState("");
   const [email, setemail] = useState("");
@@ -24,7 +24,7 @@ export default function Inscription() {
     <Container className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit}>
       <div className="Auth-form-content">
-      <h3 className="Auth-form-title">Inscription</h3>
+      <h3 className="Auth-form-title">Signup</h3>
       <div className="form-group mt-3">
       <label> Nom </label>
         <input
