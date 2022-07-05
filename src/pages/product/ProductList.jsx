@@ -17,7 +17,7 @@ import DataTable from 'react-data-table-component';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import ProductForm from './ProductForm';
+import ProductForm from './productForm';
 
 const style = {
   position: 'absolute',
