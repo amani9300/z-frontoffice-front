@@ -2,7 +2,6 @@ import './assets/css/App.css';
 
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
 import Signup from './pages/auth/Signup';
