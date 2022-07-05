@@ -5,10 +5,10 @@ import { Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
-import Signup from './pages/auth/signup';
-import Signin from './pages/auth/signin';
+import Signup from './pages/auth/Signup';
+import Signin from './pages/auth/Signin';
 import NotFoundPage from './pages/NotFound';
-import ProductList from './pages/product/productList';
+import ProductList from './pages/product/ProductList';
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));

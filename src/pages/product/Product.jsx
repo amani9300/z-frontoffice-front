@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import ProduitForm from './productForm';
-
 export default function Produit() {
   // // const [listProduit, setlistProduit] = useState([]);
 

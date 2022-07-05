@@ -10,14 +10,14 @@ import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 import Checkbox from "@mui/material/Checkbox";
 import SortIcon from "@mui/icons-material/ArrowDownward";
-import AddIcon from '@mui/icons-material//Add';
+import AddIcon from '@mui/icons-material/Add';
 import AppBar from "@material-ui/core/AppBar";
 import { PRODUCTS_COLUMNS } from '../../utils/products.columns';
 import DataTable from 'react-data-table-component';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import ProductForm from './productForm';
+import ProductForm from './ProductForm';
 
 const style = {
   position: 'absolute',
