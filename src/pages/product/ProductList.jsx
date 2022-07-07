@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { makeStyles } from "@material-ui/core/styles";
-// import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import Paper from "@material-ui/core/Paper";
+import axios from 'axios';import CssBaseline from "@material-ui/core/CssBaseline";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -18,13 +13,20 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import ProductForm from './ProductForm';
+import { Paper, makeStyles,TableRow, TableCell,Toolbar } from '@material-ui/core';
+import Controls from "../../components/controls/Controls";
+import CloseIcon from '@material-ui/icons/Close';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+
+
+
 
 const style = {
   position: 'absolute',
   top: '55vh',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 600,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -54,14 +56,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const listColumns = PRODUCTS_COLUMNS;
+const headCells = [
+  
+  { id: 'actions', label: 'Actions', disableSorting: true }
+]
 
-export default function ProductList({
-  // setnom,
-  // setprix,
-  // setqteDispo,
-  // setidproduct,
-  // setdescription,
-}) {
+export default function ProductList() {
 
   const [id, setid] = useState("");
   const [barcode, setbarcode] = useState("");
@@ -85,6 +85,15 @@ export default function ProductList({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles();
+  const [recordForEdit, setRecordForEdit] = useState(null)
+  const [records, setRecords] = useState((listProducts))
+
+  const [openModal, setOpenModal] = useState(false)
+
+  const openInModal = product => {
+    setRecordForEdit(product)
+    setOpenModal(true)
+}
 
   const [listProducts, setlistProducts] = useState([])
   // Récuperer la liste des products de l'utilisateur connecté
@@ -143,7 +152,6 @@ export default function ProductList({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
 
   return (
     <div className={classes.root}>
@@ -173,7 +181,7 @@ export default function ProductList({
           <Button
             variant="outlined"
             color="secondary"
-            startIcon={<AddIcon/>}
+            startIcon={<AddIcon />}
             onClick={handleOpen}
           >
             New Product
@@ -185,7 +193,8 @@ export default function ProductList({
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
+              <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
+                Create product
                 <div>
                   <ProductForm
                     // listProducts={listProducts}
@@ -205,11 +214,10 @@ export default function ProductList({
                   />
                 </div>
               </Typography>
-          
             </Box>
           </Modal>
         </div>
-
+       
         <DataTable
           columns={listColumns}
           data={listProducts}
@@ -224,7 +232,22 @@ export default function ProductList({
           selectableRows
           selectableRowsComponent={Checkbox}
           selectableRowsComponentProps={selectableRowsComponentProps}
+          
         />
+        
+       
+          <Controls.ActionButton
+            color="primary"
+            // onClick={() => {
+            //   updateForm(product);
+            // }}
+          >
+            <EditOutlinedIcon fontSize="small" />
+          </Controls.ActionButton>
+          <Controls.ActionButton color="secondary">
+            <CloseIcon fontSize="small" />
+          </Controls.ActionButton>
+        
       </Paper>
     </div>
   );
