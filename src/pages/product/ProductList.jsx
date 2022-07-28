@@ -83,7 +83,13 @@ export default function ProductList() {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  // on close, refresh list
+  const handleClose = (e) => {
+    console.log('Closing modal with data: ', e)
+    setOpen(false);
+  };
+
   const classes = useStyles();
   const [recordForEdit, setRecordForEdit] = useState(null)
   const [records, setRecords] = useState((listProducts))
@@ -91,8 +97,8 @@ export default function ProductList() {
   const [openModal, setOpenModal] = useState(false)
 
   const openInModal = product => {
-    setRecordForEdit(product)
-    setOpenModal(true)
+    setRecordForEdit(product);
+    setOpenModal(true);
 }
 
   const [listProducts, setlistProducts] = useState([])
@@ -198,19 +204,20 @@ export default function ProductList() {
                 <div>
                   <ProductForm
                     // listProducts={listProducts}
-                    // setlistProductsss={setlistProductsss}
-                    name={name}
-                    setname={setname}
-                    price={price}
-                    setprice={setprice}
-                    qty={qty}
-                    setqty={setqty}
-                    description={description}
-                    setdescription={setdescription}
-                    image={image}
-                    setimage={setimage}
-                    id={id}
-                    setid={setid}
+                    // setlistProductsss={setlistProducts}
+                    
+                    // name={name}
+                    // setname={setname}
+                    // price={price}
+                    // setprice={setprice}
+                    // qty={qty}
+                    // setqty={setqty}
+                    // description={description}
+                    // setdescription={setdescription}
+                    // image={image}
+                    // setimage={setimage}
+                    // id={id}
+                    // setid={setid}
                   />
                 </div>
               </Typography>
