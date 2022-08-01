@@ -14,23 +14,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AuthContext from '../contexts/AuthContext';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
-import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
+import { Toolbar,makeStyles } from "@material-ui/core";
 
 
-
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: 400,
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-// };
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,8 +37,18 @@ const useStyles = makeStyles((theme) => ({
   content: {
     margin: theme.spacing(2),
     padding: theme.spacing(2)
-  }
-}));
+  },
+  searchInput: {
+    opacity: '0.6',
+    padding: `0px ${theme.spacing(1)}px`,
+    fontSize: '0.8rem',
+    '&:hover': {
+        backgroundColor: '#f2f2f2'
+    },
+    '& .MuiSvgIcon-root': {
+        marginRight: theme.spacing(1)
+    }
+ }}))
 
 export default function Header() {
   const { token, setToken } = React.useContext(AuthContext);
@@ -78,6 +74,8 @@ export default function Header() {
   return (
     // <Container fixed>
     <div className={classes.root}>
+
+
 
       <Menu
         anchorEl={anchorEl}
@@ -114,6 +112,7 @@ export default function Header() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        
         <MenuItem>
           <Avatar /> Profile
         </MenuItem>

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';import CssBaseline from "@material-ui/core/CssBaseline";
-import IconButton from "@material-ui/core/IconButton";
+import {InputBase} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import MenuIcon from "@material-ui/icons/Menu";
-import Checkbox from "@mui/material/Checkbox";
-import SortIcon from "@mui/icons-material/ArrowDownward";
+
 import AddIcon from '@mui/icons-material/Add';
 import AppBar from "@material-ui/core/AppBar";
 import { PRODUCTS_COLUMNS } from '../../utils/products.columns';
-import DataTable from 'react-data-table-component';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -17,6 +14,9 @@ import { Paper, makeStyles,TableRow, TableCell,Toolbar } from '@material-ui/core
 import Controls from "../../components/controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import SearchIcon from '@material-ui/icons/Search';
+import './ProductStyle.css';
+
 
 
 
@@ -53,6 +53,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     padding: theme.spacing(2)
   }
+ 
+  
 }));
 
 const listColumns = PRODUCTS_COLUMNS;
@@ -63,6 +65,7 @@ const headCells = [
 
 export default function ProductList() {
 
+  const [product, setProduct] = useState();
   const [id, setid] = useState("");
   const [barcode, setbarcode] = useState("");
   const [reference, setreference] = useState("");
@@ -83,12 +86,14 @@ export default function ProductList() {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
+  const handleClose = () => setOpen(false);
   // on close, refresh list
-  const handleClose = (e) => {
-    console.log('Closing modal with data: ', e)
-    setOpen(false);
-  };
+
+  useEffect(() =>{handleClose()},[listProducts])
+  // const handleClose = (e) => {
+  //   console.log('Closing modal with data: ', e)
+  //   setOpen(false);
+  // };
 
   const classes = useStyles();
   const [recordForEdit, setRecordForEdit] = useState(null)
@@ -105,6 +110,10 @@ export default function ProductList() {
   // Récuperer la liste des products de l'utilisateur connecté
   useEffect(() => {
     console.log('listProducts')
+    getProducts()
+  }, [setlistProducts]);
+
+  const getProducts= ()=> {
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -114,11 +123,9 @@ export default function ProductList() {
       .get("/json/products.json", config)
       .then((res) => setlistProducts(res.data))
       .catch((err) => console.log(err.response));
-  }, [setlistProducts]);
-
-
+  }
   // Supprimer un product
-  const deleteproduct = (id) => {
+  const deleteProduct = (id) => {
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -127,9 +134,9 @@ export default function ProductList() {
     axios
       .delete(`/api/product/${id}`, config)
       .then((res) => {
-        setlistProducts(listProducts.filter((product) => product._id !== id));
+       getProducts() // setlistProducts(listProducts.filter((product) => product._id !== id)); 
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => {getProducts(); console.log(err.response)});
   };
 
   const isIndeterminate = (indeterminate) => indeterminate;
@@ -139,23 +146,11 @@ export default function ProductList() {
   // Mettre à jours le formulaire
   const updateForm = (product) => {
    
-    setid(product._id);
-        setbarcode(product.barcode);
-        setreference(product.reference);
-        setname(product.name);
-        setpurchasePrice(product.purchasePrice);
-        setprice(product.price);
-        setincludesTax(product.includesTax);
-        setqty(product.qty);
-        setmeasure(product.measure);
-        setcategory(product.category);
-        setvat(product.vat);
-        setbrand(product.brand);
-        setsupplier(product.supplier);
-        setcolor(product.color);
-        setimage(product.image);
-  
+    setProduct(product);
+    setOpen(true);
+    
     window.scrollTo({ top: 0, behavior: "smooth" });
+   
   };
 
 
@@ -164,14 +159,12 @@ export default function ProductList() {
       <CssBaseline />
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
+        <InputBase
+                            placeholder="Search topics"
+                            className={classes.searchInput}
+                            startAdornment={<SearchIcon fontSize="small" />}
+                        />
+     
           <Typography variant="h6" className={classes.title}>
             Centimoo Stock Management
           </Typography>
@@ -192,7 +185,7 @@ export default function ProductList() {
           >
             New Product
           </Button>
-          <Modal
+          <Modal  
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -200,61 +193,95 @@ export default function ProductList() {
           >
             <Box sx={style}>
               <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-                Create product
+                {product? "Modify": "Create"} product
                 <div>
-                  <ProductForm
-                    // listProducts={listProducts}
-                    // setlistProductsss={setlistProducts}
-                    
-                    // name={name}
-                    // setname={setname}
-                    // price={price}
-                    // setprice={setprice}
-                    // qty={qty}
-                    // setqty={setqty}
-                    // description={description}
-                    // setdescription={setdescription}
-                    // image={image}
-                    // setimage={setimage}
-                    // id={id}
-                    // setid={setid}
-                  />
+                  <ProductForm product={product}/>
+                  
                 </div>
               </Typography>
             </Box>
           </Modal>
         </div>
        
-        <DataTable
-          columns={listColumns}
-          data={listProducts}
-          defaultSortField="name"
-          sortIcon={<SortIcon />}
-          fixedHeader
-          fixedHeaderScrollHeight="80vh"
-          pagination
-          responsive
-          subHeaderAlign="right"
-          subHeaderWrap
-          selectableRows
-          selectableRowsComponent={Checkbox}
-          selectableRowsComponentProps={selectableRowsComponentProps}
+        {/* <Table
+          // columns={listColumns}
+          // data={listProducts}
+          // defaultSortField="name"
+          // sortIcon={<SortIcon />}
+          // fixedHeader
+          // fixedHeaderScrollHeight="80vh"
+          // pagination
+          // responsive
+          // subHeaderAlign="right"
+          // subHeaderWrap
+          // selectableRows
+          // selectableRowsComponent={Checkbox}
+          // selectableRowsComponentProps={selectableRowsComponentProps}
           
-        />
+        /> */}
+        <div style={{overflow:'auto'}}>
+        <table className="styled-table">
+    <thead >
+        <tr >
+            <th >Id</th>
+            <th >Name</th>
+            <th >Barcode</th>
+            <th >Reference</th>
+            <th >Purcentage</th>
+            <th >Price</th>
+            <th >IncludesTax</th>
+            <th >Quantity</th>
+            <th >Measure</th>
+            <th >Category</th>
+            <th >VAT</th>
+            <th >Brand</th>
+            <th >Supplier</th>
+            <th >Color</th>
+            <th >Image</th>
+            
+            <th>btn</th> 
+            
+        </tr>
+    </thead>
+    <tbody>
+    {listProducts.map((product, i) => (
+        <tr key={i} >
+        <td >{product.id}</td>
+        <td >{product.barcode}</td>
+        <td >{product.reference}</td>
+        <td >{product.name}</td>
+        <td >{product.purchasePrice}</td>
+        <td >{product.price}</td>
+        <td >{product.qty}</td>
+        <td >{product.measure}</td>
+        <td >{product.category}</td>
+        <td >{product.vat}</td>
+        <td >{product.brand}</td>
+        <td >{product.supplier}</td>
+        <td >{product.color}</td>
+        <td >{product.image}</td>
+
         
-       
-          <Controls.ActionButton
+        <td>  <Controls.ActionButton
             color="primary"
-            // onClick={() => {
-            //   updateForm(product);
-            // }}
+            onClick={() => {
+              updateForm(product);
+            }}
           >
             <EditOutlinedIcon fontSize="small" />
           </Controls.ActionButton>
-          <Controls.ActionButton color="secondary">
+          <Controls.ActionButton color="secondary"  onClick={() => {
+              deleteProduct(product.id);}}
+          >
             <CloseIcon fontSize="small" />
-          </Controls.ActionButton>
-        
+          </Controls.ActionButton></td>
+
+        </tr>
+    ))
+    }
+</tbody>
+</table>
+</div>
       </Paper>
     </div>
   );

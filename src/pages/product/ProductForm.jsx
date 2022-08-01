@@ -1,11 +1,10 @@
 import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 
 import Controls from '../../components/controls/Controls';
 import { Form } from '../../components/useForm';
-import { Modal } from '@mui/material';
 
 // const useStyles = makeStyles((theme) => ({
 //   button: {
@@ -27,29 +26,51 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function ProductForm(
+export default function ProductForm({product}
 ) {
 
-  const [name, setname] = useState('');
-  const [barcode, setbarcode] = useState('');
-  const [id, setid] = useState('');
-  const [reference, setreference] = useState('');
-  const [purchasePrice, setpurchasePrice] = useState('');
-  const [price, setprice] = useState('');
-  const [includesTax, setincludesTax] = useState('');
-  const [qty, setqty] = useState('');
-  const [measure, setmeasure] = useState('');
-  const [category, setcategory] = useState('');
-  const [vat, setvat] = useState('');
-  const [brand, setbrand] = useState('');
-  const [supplier, setsupplier] = useState('');
-  const [color, setcolor] = useState('');
-  const [image, setimage] = useState('');
+  const [name, setName] = useState('');
+  const [barcode, setBarcode] = useState('');
+  const [id, setId] = useState('');
+  const [reference, setReference] = useState('');
+  const [purchasePrice, setPurchasePrice] = useState('');
+  const [price, setPrice] = useState('');
+  const [includesTax, setIncludesTax] = useState('');
+  const [qty, setQty] = useState('');
+  const [measure, setMeasure] = useState('');
+  const [category, setCategory] = useState('');
+  const [vat, setVat] = useState('');
+  const [brand, setBrand] = useState('');
+  const [supplier, setSupplier] = useState('');
+  const [color, setColor] = useState('');
 
   const classes = useStyles();
+  useEffect(() => {
+   
+    if(!product) return
+    setId(product.id)
+    setName(product.name)
+    setBarcode(product.barcode)
+    setReference(product.reference)
+    setPurchasePrice(product.purchasePrice)
+    setPrice(product.price)
+    setIncludesTax(product.includesTax)
+    setQty(product.qty)
+    setMeasure(product.measure)
+    setCategory(product.category)
+    setVat(product.vat)
+    setBrand(product.brand)
+    setSupplier(product.supplier)
+    setColor(product.color)
+   
+    
+  },
+  [product]
+
+  )
 
   // Crée un product
-  const createProduct = (e) => {
+  const submitProduct = (e) => {
     e.preventDefault();
 
     let formData = new FormData();
@@ -67,61 +88,39 @@ export default function ProductForm(
     formData.append("brand", brand);
     formData.append("supplier", supplier);
     formData.append("color", color);
-    // formData.append("image", image);
 
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     };
-    axios
-      .post("/api/product", formData, config)
+    //si il existe on le met à jour si non on cée un nouveau
+    if(product){
+      axios
+      .put(`/api/product/${product.id}`, formData, config)
       .then((res) => {
         // setlistProducts((listProducts) => [res.data, ...listProducts]);
 
         cleanForm();
       })
       .catch((err) => console.log(err.response));
-  };
+  
 
-  // Mettre à jours un product
-  const updateProduct = (e) => {
-    e.preventDefault();
-
-    let formData = new FormData();
-    formData.append("id", id);
-    formData.append("barcode", barcode);
-    formData.append("reference", reference);
-    formData.append("name", name);
-    formData.append("purchasePrice", purchasePrice);
-    formData.append("price", price);
-    formData.append("includesTax", includesTax);
-    formData.append("qty", qty);
-    formData.append("measure", measure);
-    formData.append("category", category);
-    formData.append("vat", vat);
-    formData.append("brand", brand);
-    formData.append("supplier", supplier);
-    formData.append("color", color);
-    formData.append("image", image);
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    };
-    axios
-      .put(`/api/product/${id}`, formData, config)
+    }else{
+      axios
+      .post(`/api/product`, formData, config)
       .then((res) => {
-        // const tmp = listProducts.filter((product) => product._id !== id);
-        // setlistProducts([res.data, ...tmp]);
+        // setlistProducts((listProducts) => [res.data, ...listProducts]);
+
         cleanForm();
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err.response));
+    }
+   }; 
+
 
   return (
-    <Form onSubmit={createProduct}>
+    <Form onSubmit={submitProduct}>
       <Grid container rowspacing={1} columnspacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="space-evenly">
         <Grid item xs={6} >
           <Controls.Input
@@ -129,7 +128,7 @@ export default function ProductForm(
             type="text"
             placeholder="Enter name"
             value={name}
-            onInput={e => setname(e.target.value)}
+            onInput={e => setId(e.target.value)}
             required
           />
           <Controls.Input
@@ -137,7 +136,7 @@ export default function ProductForm(
             type="text"
             placeholder="Enter barcode"
             value={barcode}
-            onInput={e => setbarcode(e.target.value)}
+            onInput={e => setBarcode(e.target.value)}
             required
           />
           <Controls.Input
@@ -145,7 +144,7 @@ export default function ProductForm(
             type="text"
             placeholder="Enter reference"
             value={reference}
-            onInput={e => setreference(e.target.value)}
+            onInput={e => setBarcode(e.target.value)}
             required
           />
           <Controls.Input
@@ -153,7 +152,7 @@ export default function ProductForm(
             type="number"
             placeholder="Enter purchase price"
             value={purchasePrice}
-            onInput={e => setpurchasePrice(e.target.value)}
+            onInput={e => setPurchasePrice(e.target.value)}
             required
           />
           <Controls.Input
@@ -161,14 +160,14 @@ export default function ProductForm(
             type="number"
             placeholder="Enter price"
             value={price}
-            onInput={e => setprice(e.target.value)}
+            onInput={e => setPrice(e.target.value)}
             required
           />
           <Controls.Input
             label="IncludesTax"
             type="text"
             value={includesTax}
-            onInput={e => setincludesTax(e.target.value)}
+            onInput={e => setIncludesTax(e.target.value)}
             required
           />
           <Controls.Input
@@ -176,7 +175,7 @@ export default function ProductForm(
             type="number"
             placeholder="Enter quantity"
             value={qty}
-            onInput={e => setqty(e.target.value)}
+            onInput={e => setQty(e.target.value)}
             required
           />
         </Grid>
@@ -187,48 +186,42 @@ export default function ProductForm(
             type="text"
             value={measure}
             required
-            onInput={e => setmeasure(e.target.value)}
+            onInput={e => setMeasure(e.target.value)}
             placeholder="UNIT"
           />
           <Controls.Input
             label="Category"
             type="text"
             value={category}
-            onInput={e => setcategory(e.target.value)}
+            onInput={e => setCategory(e.target.value)}
             required
           />
           <Controls.Input
             label="VAT"
             type="number"
             value={vat}
-            onInput={e => setvat(e.target.value)}
+            onInput={e => setVat(e.target.value)}
             required
           />
           <Controls.Input
             label="Brand"
             type="text"
             value={brand}
-            onInput={e => setbrand(e.target.value)}
+            onInput={e => setBrand(e.target.value)}
           />
           <Controls.Input
             label="Supplier"
             type="text"
             value={supplier}
-            onInput={e => setsupplier(e.target.value)}
+            onInput={e => setSupplier(e.target.value)}
           />
           <Controls.Input
             label="Color"
             type="text"
             value={color}
-            onInput={e => setcolor(e.target.value)}
+            onInput={e => setColor(e.target.value)}
           />
-          {/* <Input
-            label="Image"
-            id="formFileSm"
-            type="file"
-            spacing='8'
-            onInput={ e=>setimage(e.target.value)}
-          /> */}
+          
 
         </Grid>
       </Grid>
@@ -245,20 +238,19 @@ export default function ProductForm(
   );
 
   function cleanForm() {
-    setid("");
-    setbarcode("");
-    setreference("");
-    setname("");
-    setpurchasePrice("");
-    setprice("");
-    setincludesTax("");
-    setqty("");
-    setmeasure("");
-    setcategory("");
-    setvat("");
-    setbrand("");
-    setsupplier("");
-    setcolor("");
-    setimage("");
+    setId("");
+    setBarcode("");
+    setBarcode("");
+    setId("");
+    setPurchasePrice("");
+    setPrice("");
+    setIncludesTax("");
+    setQty("");
+    setMeasure("");
+    setCategory("");
+    setVat("");
+    setBrand("");
+    setSupplier("");
+    setColor("");
   }
 }
