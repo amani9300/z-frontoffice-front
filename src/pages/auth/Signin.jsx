@@ -8,10 +8,11 @@ import loginFrontPic from "../../assets/images/loginFrontPic.png";
 import AuthContext from "../../contexts/AuthContext";
 
 export default function Signin() {
+
   const AppName = "Centimoo Stock Management";
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(false);
 
@@ -75,7 +76,7 @@ export default function Signin() {
                 <div>forget password?</div>
               </div>
               <div className="signIn">
-                <a onClick={submitHandler}>Sign In</a>
+                <button onClick={submitHandler}>Sign In</button>
               </div>
             </div>
             <div className="orDiv">

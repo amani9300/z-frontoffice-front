@@ -2,15 +2,9 @@ import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import React, { useState,useEffect} from 'react';
-
 import Controls from '../../components/controls/Controls';
 import { Form } from '../../components/useForm';
 
-// const useStyles = makeStyles((theme) => ({
-//   button: {
-//     margin: theme.spacing(1),
-//   },
-// }));
 const useStyles = makeStyles(theme => ({
   pageContent: {
     margin: theme.spacing(5),
@@ -46,8 +40,7 @@ export default function ProductForm({product}
 
   const classes = useStyles();
   useEffect(() => {
-   
-    if(!product) return
+    if(!product) return;
     setId(product.id)
     setName(product.name)
     setBarcode(product.barcode)
@@ -62,12 +55,7 @@ export default function ProductForm({product}
     setBrand(product.brand)
     setSupplier(product.supplier)
     setColor(product.color)
-   
-    
-  },
-  [product]
-
-  )
+  },  [product])
 
   // Crée un product
   const submitProduct = (e) => {
@@ -144,7 +132,7 @@ export default function ProductForm({product}
             type="text"
             placeholder="Enter reference"
             value={reference}
-            onInput={e => setBarcode(e.target.value)}
+            onInput={e => setReference(e.target.value)}
             required
           />
           <Controls.Input
