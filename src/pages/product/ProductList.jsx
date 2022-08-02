@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import {InputBase} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
@@ -15,6 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import './ProductStyle.css';
+import { api } from '../../services/api';
 
 const style = {
   position: 'absolute',
@@ -64,15 +65,13 @@ export default function ProductList() {
   }, [setlistProducts]);
 
   const getProducts= ()=> {
-    axios
-      .get("/json/products.json", { headers: {Authorization: `Bearer ${localStorage.getItem("token")}`,},})
-      .then((res) => setlistProducts(res.data))
-      .catch((err) => console.log(err.response));
+      api.GetProducts()
+        .then((res) => setlistProducts(res.data))
+        .catch((err) => console.log(err.response));
   }
   // Supprimer un product
   const deleteProduct = (id) => {
-    axios
-      .delete(`/api/product/${id}`, { headers: {Authorization: `Bearer ${localStorage.getItem("token")}`,},})
+    api.DeleteProduct(id)
       .then((res) => {
        getProducts() // setlistProducts(listProducts.filter((product) => product._id !== id)); 
       })

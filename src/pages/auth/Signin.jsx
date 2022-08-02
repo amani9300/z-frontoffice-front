@@ -1,11 +1,11 @@
 import "../../assets/css/login.css";
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import loginFrontPic from "../../assets/images/loginFrontPic.png";
 import AuthContext from "../../contexts/AuthContext";
+import { api } from "../../services/api";
 
 export default function Signin() {
 
@@ -23,10 +23,8 @@ export default function Signin() {
   const submitHandler = (e) => {
     e.preventDefault();
     seterror(false);
-    const user = { username, password };
     setloading(true);
-    axios
-      .get("/json/login.json", user)
+    api.Login({ username, password })
       .then((res) => {
         if (res.data && res.data.token) {
           localStorage.setItem("token", res.data.token);

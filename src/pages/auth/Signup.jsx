@@ -1,7 +1,7 @@
 import { Button, Container } from "@material-ui/core";
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
 
 export default function Signup() {
   const [nom, setnom] = useState("");
@@ -13,9 +13,7 @@ export default function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = { nom, prenom, email, password };
-    axios
-      .post("/api/user/register", user)
+    api.Register({ nom, prenom, email, password })
       .then((res) => navigate("/connexion"))
       .catch((err) => console.log(err.response));
   };

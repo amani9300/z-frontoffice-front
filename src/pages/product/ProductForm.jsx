@@ -1,9 +1,9 @@
 import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import React, { useState,useEffect} from 'react';
 import Controls from '../../components/controls/Controls';
 import { Form } from '../../components/useForm';
+import { api } from '../../services/api';
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
@@ -61,45 +61,34 @@ export default function ProductForm({product}
   const submitProduct = (e) => {
     e.preventDefault();
 
-    let formData = new FormData();
-    formData.append("id", id);
-    formData.append("barcode", barcode);
-    formData.append("reference", reference);
-    formData.append("name", name);
-    formData.append("purchasePrice", purchasePrice);
-    formData.append("price", price);
-    formData.append("includesTax", includesTax);
-    formData.append("qty", qty);
-    formData.append("measure", measure);
-    formData.append("category", category);
-    formData.append("vat", vat);
-    formData.append("brand", brand);
-    formData.append("supplier", supplier);
-    formData.append("color", color);
+    // let formData = new FormData();
+    // formData.append("id", id);
+    // formData.append("barcode", barcode);
+    // formData.append("reference", reference);
+    // formData.append("name", name);
+    // formData.append("purchasePrice", purchasePrice);
+    // formData.append("price", price);
+    // formData.append("includesTax", includesTax);
+    // formData.append("qty", qty);
+    // formData.append("measure", measure);
+    // formData.append("category", category);
+    // formData.append("vat", vat);
+    // formData.append("brand", brand);
+    // formData.append("supplier", supplier);
+    // formData.append("color", color);
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    };
     //si il existe on le met à jour si non on cée un nouveau
     if(product){
-      axios
-      .put(`/api/product/${product.id}`, formData, config)
+      api.UpdateProduct(id, product)
       .then((res) => {
         // setlistProducts((listProducts) => [res.data, ...listProducts]);
-
         cleanForm();
       })
       .catch((err) => console.log(err.response));
-  
-
-    }else{
-      axios
-      .post(`/api/product`, formData, config)
+    } else {
+      api.CreateProduct()
       .then((res) => {
         // setlistProducts((listProducts) => [res.data, ...listProducts]);
-
         cleanForm();
       })
       .catch((err) => console.log(err.response));
