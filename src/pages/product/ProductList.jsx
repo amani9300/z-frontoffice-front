@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import {InputBase} from "@material-ui/core";
+import { CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, InputBase } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
 import AddIcon from '@mui/icons-material/Add';
@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import ProductForm from './ProductForm';
-import { Paper, makeStyles,Toolbar } from '@material-ui/core';
+import { Paper, makeStyles, Toolbar } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -49,13 +49,13 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     padding: theme.spacing(2)
   }
- 
-  
 }));
 
 export default function ProductList() {
   const [product, setProduct] = useState();
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = useState(true);
+
   const classes = useStyles();
   const [listProducts, setlistProducts] = useState([]);
 
@@ -64,19 +64,25 @@ export default function ProductList() {
     getProducts()
   }, [setlistProducts]);
 
-  const getProducts= ()=> {
-      api.GetProducts()
-        .then((res) => setlistProducts(res.data))
-        .catch((err) => console.log(err.response));
+  const getProducts = () => {
+    setLoading(true);
+    api.GetProducts()
+      .then((res) => setlistProducts(res.data))
+      .catch((err) => console.log(err.response))
+      .finally(() => setLoading(false))
   }
-  // Supprimer un product
-  const deleteProduct = (id) => {
+  // // Supprimer un product
+  // const confirmDelete = (product) => {
+  //   return <ConfirmDelete name={product.name} id={product.id} handleRemove={deleteProduct} />
+  // };
+
+  const handleRemove = (id) => {
     api.DeleteProduct(id)
       .then((res) => {
-       getProducts() // setlistProducts(listProducts.filter((product) => product._id !== id)); 
+        getProducts() // setlistProducts(listProducts.filter((product) => product._id !== id)); 
       })
-      .catch((err) => {getProducts(); console.log(err.response)});
-  };
+      .catch((err) => { getProducts(); console.log(err.response) });
+  }
 
   // Mettre à jours le formulaire
   const updateForm = (product) => {
@@ -85,12 +91,13 @@ export default function ProductList() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="static">
         <Toolbar>
-        <InputBase placeholder="Search topics" className={classes.searchInput} startAdornment={<SearchIcon fontSize="small" />} />
+          <InputBase placeholder="Search topics" className={classes.searchInput} startAdornment={<SearchIcon fontSize="small" />} />
           <Typography variant="h6" className={classes.title}>
             Centimoo Stock Management
           </Typography>
@@ -101,70 +108,85 @@ export default function ProductList() {
         <div className={classes.toolbar}>
           <Typography variant="h6" component="h2" color="primary">Products</Typography>
 
-          <Button variant="outlined" color="secondary" startIcon={<AddIcon />} onClick={() => setOpen(true)}> New Product </Button>
+          <Button variant="outlined" color="secondary" startIcon={<AddIcon />} onClick={() => updateForm()}> New Product </Button>
 
           <Modal open={open} onClose={() => setOpen(false)} arial-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
             <Box sx={style}>
               <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-                {product? "Modify": "Create"} product
+                {product ? "Modify" : "Create"} product
                 <div>
-                  <ProductForm product={product}/>
-                  
+                  <ProductForm product={product} refresh={getProducts} close={() => setOpen(false)} />
                 </div>
               </Typography>
             </Box>
           </Modal>
         </div>
 
-        <div style={{overflow:'auto'}}>
+        <div style={{ overflow: 'auto' }}>
           <table className="styled-table">
             <thead >
-                <tr >
-                    <th >Id</th>
-                    <th >Name</th>
-                    <th >Barcode</th>
-                    <th >Reference</th>
-                    <th >Purcentage</th>
-                    <th >Price</th>
-                    <th >IncludesTax</th>
-                    <th >Quantity</th>
-                    <th >Measure</th>
-                    <th >Category</th>
-                    <th >VAT</th>
-                    <th >Brand</th>
-                    <th >Supplier</th>
-                    <th >Color</th>
-                    <th>Actions</th> 
-                    
-                </tr>
+              <tr >
+                <th >Id</th>
+                <th >Name</th>
+                <th >Barcode</th>
+                <th >Reference</th>
+                <th >Purcentage</th>
+                <th >Price</th>
+                <th >IncludesTax</th>
+                <th >Quantity</th>
+                <th >Measure</th>
+                <th >Category</th>
+                <th >VAT</th>
+                <th >Brand</th>
+                <th >Supplier</th>
+                <th >Color</th>
+                <th>Actions</th>
+
+              </tr>
             </thead>
             <tbody>
-            {listProducts.map((product, i) => (
-              <tr key={i} >
-                <td >{product.id}</td>
-                <td >{product.name}</td>
-                <td >{product.barcode}</td>
-                <td >{product.reference}</td>
-                <td >{product.purchasePrice}</td>
-                <td >{product.price}</td>
-                <td >{product.qty}</td>
-                <td >{product.measure}</td>
-                <td >{product.category}</td>
-                <td >{product.vat}</td>
-                <td >{product.brand}</td>
-                <td >{product.supplier}</td>
-                <td >{product.color}</td>
-                <td >{product.image}</td>
-                <td>
-                  <Controls.ActionButton color="primary" onClick={() => { updateForm(product); }}>
-                    <EditOutlinedIcon fontSize="small" />
-                  </Controls.ActionButton>
-                  <Controls.ActionButton color="secondary" onClick={() => { deleteProduct(product.id);}}>
-                    <CloseIcon fontSize="small" />
-                  </Controls.ActionButton>
-                </td>
-              </tr>
+              {listProducts.map((product, i) => (
+                <tr key={i} >
+                  <td >{product.id}</td>
+                  <td >{product.name}</td>
+                  <td >{product.barcode}</td>
+                  <td >{product.reference}</td>
+                  <td >{product.purchasePrice}</td>
+                  <td >{product.price}</td>
+                  <td >{product.includesTax ? 'Yes' : 'No'}</td>
+                  <td >{product.qty}</td>
+                  <td >{product.measure}</td>
+                  <td >{product.category}</td>
+                  <td >{product.vat}</td>
+                  <td >{product.brand}</td>
+                  <td >{product.supplier}</td>
+                  <td >{product.color}</td>
+                  <td>
+                    <Controls.ActionButton color="primary" onClick={() => { updateForm(product); }}>
+                      <EditOutlinedIcon fontSize="small" />
+                    </Controls.ActionButton>
+                    <Controls.ActionButton color="secondary" onClick={() => { handleRemove(product.id); }}>
+                      <CloseIcon fontSize="small" />
+                    </Controls.ActionButton>
+                  </td>
+                </tr>
               ))}
+              {
+                loading &&
+                <tr>
+                  <td colSpan={14} align='center'>
+                    <CircularProgress size={18} />
+                  </td>
+                </tr>
+              }
+              {
+                !loading && !listProducts.length &&
+                <tr>
+                  <td colSpan={14} align='center'>
+                    No products found
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
@@ -172,3 +194,4 @@ export default function ProductList() {
     </div>
   );
 }
+

@@ -14,7 +14,7 @@ export default function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
-  const [error, seterror] = useState(false);
+  const [error, setError] = useState();
 
   const { setToken } = useContext(AuthContext);
 
@@ -22,21 +22,25 @@ export default function Signin() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    seterror(false);
+    setError();
     setloading(true);
     api.Login({ username, password })
       .then((res) => {
         if (res.data && res.data.token) {
           localStorage.setItem("token", res.data.token);
           setToken(res.data.token);
-          navigate("/products");
+          navigate("/");
           return;
         }
-        seterror(true);
       })
       .catch((err) => {
-        seterror(true);
         console.error('error: ', err);
+        try {
+          const e = err.response.data.message;
+          setError(e);
+        } catch (_) {
+          setError(`An error has occurred`);
+        }
       })
       .finally(() => setloading(false));
   };
@@ -51,6 +55,7 @@ export default function Signin() {
           <form onSubmit={submitHandler}>
             <p>Welcome to {AppName}</p>
             <h2>Sign in</h2>
+            { error && <div className=''>{error}</div>}
             <div className="userLogin">
               <TextField
                 fullWidth
