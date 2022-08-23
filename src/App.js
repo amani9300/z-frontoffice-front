@@ -6,6 +6,10 @@ import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
 import Signup from './pages/auth/Signup';
 import Signin from './pages/auth/Signin';
+import AppBar from "@material-ui/core/AppBar";
+import { Toolbar, Typography } from '@material-ui/core';
+import { InputBase } from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
 
 import { AuthGuard } from './contexts/Guard';
 
@@ -14,6 +18,15 @@ export default function App() {
 
   return (
     <div className="App">
+      <AppBar position="static">
+        <Toolbar>
+          <InputBase placeholder="Search topics" startAdornment={<SearchIcon fontSize="small" />} />
+          <Typography variant="h6">
+            Centimoo Stock Management
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
       <AuthContext.Provider value={{ token, setToken }}>
         {
           !!token === true ? <Header /> : null

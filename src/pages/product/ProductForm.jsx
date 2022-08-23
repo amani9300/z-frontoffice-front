@@ -29,7 +29,7 @@ export default function ProductForm({ product, refresh, close }) {
   const [reference, setReference] = useState('');
   const [purchasePrice, setPurchasePrice] = useState('');
   const [price, setPrice] = useState('');
-  const [includesTax, setIncludesTax] = useState('');
+  const [includesTax, setIncludesTax] = useState(false);
   const [qty, setQty] = useState('');
   const [measure, setMeasure] = useState('');
   const [category, setCategory] = useState('');
@@ -262,7 +262,7 @@ export default function ProductForm({ product, refresh, close }) {
     setReference("");
     setPurchasePrice("");
     setPrice("");
-    setIncludesTax("");
+    setIncludesTax(false);
     setQty("");
     setMeasure("");
     setCategory("");

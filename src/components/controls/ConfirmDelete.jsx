@@ -5,23 +5,16 @@ import Button from "./Button";
 export const ConfirmDelete = ({ open, name, id, handleRemove }) => {
 
   return (
-    <Dialog
-      open={open}
-      onClose={() => { }}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">
-        {"Confirm Delete"}
-      </DialogTitle>
+    <Dialog open={open}>
+      <DialogTitle id="alert-dialog-title">Confirm Delete</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           Are you sure you want to delete <b>{name}</b>?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => { handleRemove(id); }} severity="error">Yes</Button>
-        <Button onClick={() => {  }} autoFocus>No</Button>
+        <Button onClick={() => { handleRemove(id); }} variant="contained" color="secondary" text='Yes'>Yes</Button>
+        <Button onClick={() => { handleRemove();}} autoFocus text='No'>No</Button>
       </DialogActions>
     </Dialog>
   )

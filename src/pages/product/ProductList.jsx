@@ -4,7 +4,6 @@ import { CircularProgress, Dialog, DialogActions, DialogContent, DialogContentTe
 import Typography from "@material-ui/core/Typography";
 
 import AddIcon from '@mui/icons-material/Add';
-import AppBar from "@material-ui/core/AppBar";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -13,9 +12,9 @@ import { Paper, makeStyles, Toolbar } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import SearchIcon from '@material-ui/icons/Search';
 import './ProductStyle.css';
 import { api } from '../../services/api';
+import { ConfirmDelete } from '../../components/controls/ConfirmDelete';
 
 const style = {
   position: 'absolute',
@@ -55,6 +54,7 @@ export default function ProductList() {
   const [product, setProduct] = useState();
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const [remove, setRemove] = useState();
 
   const classes = useStyles();
   const [listProducts, setlistProducts] = useState([]);
@@ -71,17 +71,21 @@ export default function ProductList() {
       .catch((err) => console.log(err.response))
       .finally(() => setLoading(false))
   }
+
   // // Supprimer un product
-  // const confirmDelete = (product) => {
-  //   return <ConfirmDelete name={product.name} id={product.id} handleRemove={deleteProduct} />
-  // };
+  const confirmDelete = (product) => {
+    return <ConfirmDelete name={product.name} id={product.id} handleRemove={(id) => console.log(id)} />
+  };
 
   const handleRemove = (id) => {
-    api.DeleteProduct(id)
-      .then((res) => {
-        getProducts() // setlistProducts(listProducts.filter((product) => product._id !== id)); 
-      })
-      .catch((err) => { getProducts(); console.log(err.response) });
+    setRemove(undefined);
+    if (id) {
+      api.DeleteProduct(id)
+        .then((res) => {
+          getProducts();
+        })
+        .catch((err) => { getProducts(); console.log(err.response) });
+    }
   }
 
   // Mettre à jours le formulaire
@@ -93,16 +97,8 @@ export default function ProductList() {
 
 
   return (
-    <div className={classes.root}>
+    <section className='products'>
       <CssBaseline />
-      <AppBar position="static">
-        <Toolbar>
-          <InputBase placeholder="Search topics" className={classes.searchInput} startAdornment={<SearchIcon fontSize="small" />} />
-          <Typography variant="h6" className={classes.title}>
-            Centimoo Stock Management
-          </Typography>
-        </Toolbar>
-      </AppBar>
 
       <Paper className={classes.content}>
         <div className={classes.toolbar}>
@@ -165,9 +161,11 @@ export default function ProductList() {
                     <Controls.ActionButton color="primary" onClick={() => { updateForm(product); }}>
                       <EditOutlinedIcon fontSize="small" />
                     </Controls.ActionButton>
-                    <Controls.ActionButton color="secondary" onClick={() => { handleRemove(product.id); }}>
+                    <Controls.ActionButton color="secondary" onClick={() => { setRemove(product.id); }}>
                       <CloseIcon fontSize="small" />
                     </Controls.ActionButton>
+
+                    <ConfirmDelete name={product.name} id={product.id} handleRemove={handleRemove} open={remove === product.id} />
                   </td>
                 </tr>
               ))}
@@ -191,7 +189,7 @@ export default function ProductList() {
           </table>
         </div>
       </Paper>
-    </div>
+    </section>
   );
 }
 
