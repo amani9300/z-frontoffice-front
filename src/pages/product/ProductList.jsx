@@ -104,7 +104,8 @@ export default function ProductList() {
         <div className={classes.toolbar}>
           <Typography variant="h6" component="h2" color="primary">Products</Typography>
 
-          <Button variant="outlined" color="secondary" startIcon={<AddIcon />} onClick={() => updateForm()}> New Product </Button>
+          {/* <Button variant="outlined" color="secondary" startIcon={<AddIcon />} onClick={() => updateForm()}> New Product </Button> */}
+          <button className="btn btn-primary" onClick={() => updateForm()}> + New Product </button>
 
           <Modal open={open} onClose={() => setOpen(false)} arial-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
             <Box sx={style}>

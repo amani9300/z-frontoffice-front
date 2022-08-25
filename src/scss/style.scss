@@ -1,5 +1,9 @@
+@import './base';
 @import './variables';
 @import './typography';
+
+@import './components/button';
+@import './components/navbar';
 
 @import './pages/login';
 @import './pages/products';

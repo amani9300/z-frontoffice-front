@@ -1,0 +1,26 @@
+.btn {
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+    color: rgb(0, 0, 0);
+    background: white;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0px 0px 0px 1px, 0px 1px 2px 0px rgba(0, 0, 0, 0.171);
+    font-size: 15px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0.7em 0.8em;
+    line-height: 1;
+
+    &.btn-primary {
+        color: white;
+        background-color: black;
+    }
+}

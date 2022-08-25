@@ -1,39 +1,46 @@
 import './assets/css/App.css';
 
-import React, { useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
 import Signup from './pages/auth/Signup';
 import Signin from './pages/auth/Signin';
 import AppBar from "@material-ui/core/AppBar";
-import { Toolbar, Typography } from '@material-ui/core';
+import { Button, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { InputBase } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 
 import { AuthGuard } from './contexts/Guard';
+import { Box } from '@mui/material';
+import { Signout } from './pages/auth/Signout';
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   return (
     <div className="App">
-      <AppBar position="static">
+      {/* <AppBar component="nav">
         <Toolbar>
-          <InputBase placeholder="Search topics" startAdornment={<SearchIcon fontSize="small" />} />
-          <Typography variant="h6">
-            Centimoo Stock Management
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}          >
+            Centimoo
           </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }} className="navbar">
+            {['Contact', 'Products', 'Logout'].map((item) => (
+              <Button key={item} sx={{ color: '#fff' }}>
+                {item}
+              </Button>
+            ))}
+          </Box>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
 
       <AuthContext.Provider value={{ token, setToken }}>
-        {
-          !!token === true ? <Header /> : null
-        }
+        <Header isLoggedIn={!!token === true} />
 
         <Routes>
           <Route path="/auth" element={<Signin />} />
+          <Route path="/logout" element={<Signout />} />
           <Route path="/inscription" element={<Signup />} />
           <Route path="*" element={<AuthGuard />} />
         </Routes>

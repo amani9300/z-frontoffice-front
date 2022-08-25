@@ -119,7 +119,7 @@ export default function ProductForm({ product, refresh, close }) {
 
   return (
     <>
-      { error && <Alert severity="error">{error}</Alert> }
+      {error && <Alert severity="error">{error}</Alert>}
 
       <Form onSubmit={submitProduct}>
         <Grid container rowspacing={1} columnspacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="space-evenly">
@@ -238,18 +238,14 @@ export default function ProductForm({ product, refresh, close }) {
           </Grid>
         </Grid>
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="inherit"
-          className={classes.button}
-          disabled={loading}
-          style={{ marginRight: '20px' }}
-        >
+        {/* <Button type="submit" variant="contained" color="inherit" className={classes.button} disabled={loading} style={{ marginRight: '20px' }}> */}
+        <button type="submit" className="btn btn-primary" disabled={loading} style={{ marginRight: '20px' }}>
           {loading && <CircularProgress size={14} style={{ marginRight: '10px' }} />} Submit
-        </Button>
+        </button>
+        {/* </Button> */}
 
-        <Button type="button" variant="contained" color="inherit" onClick={() => { if (close) close() }} disabled={loading}> Close </Button>
+        {/* <Button type="button" variant="contained" color="inherit" onClick={() => { if (close) close() }} disabled={loading}> Close </Button> */}
+        <button type="button" className="btn" onClick={() => { if (close) close() }} disabled={loading}> Close </button>
 
       </Form>
     </>
