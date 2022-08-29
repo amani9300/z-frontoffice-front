@@ -1,120 +1,148 @@
 .login {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-content: center;
+  // display: grid;
+  // grid-template-columns: repeat(2, 1fr);
+  // justify-content: center;
   align-items: center;
   height: 100vh;
-}
 
-.logo {
-  display: flex;
-  width: 400px;
-  height: 400px;
-  margin: auto auto;
-}
+  .login-container {
+    background-color: $secondary;
+    color: white;
+    display: flex;
+    margin-top: 100px;
+    justify-content: space-around;
+    padding: 20px;
+    
+    .logo {
+      display: flex;
+      width: 400px;
+      height: 400px;
+      margin: 80px 0;
 
-.logoPic {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
+      .logoPic {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+      }
+    }
 
-.loginRight {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
+    .loginRight {
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      width: 500px;
 
-.userLogin {
-  width: 350px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
+      .alert {
+        margin-bottom: 1rem;
+      }
 
-.sign-in-button {
-  width: 200px;
-  height: 40px;
-  padding: 11px 8px;
-  border-color: #757575;
-  border-radius: 5px;
+      p,
+      h1 {
+        color: white;
+      }
 
-  color: #757575;
-  font-weight: 500;
-  font-size: 14px;
-  // font-family: "Roboto", sans-serif;
+      .userLogin {
+        width: 350px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
 
-  background-image: url("https://developers.google.com/identity/images/g-logo.png");
-  background-color: #ffffff;
-  background-size: 18px 18px;
-  background-repeat: no-repeat;
-  background-position: 8px 11px;
-  border: 2px solid #ddd;
-}
+        button {
+          width: 120px;
+        }
 
-.sign-in-button:hover {
-  border: 2px solid #4285f4;
-  cursor: pointer;
-}
+        .button-container {
+          margin-top: 2rem;
+        }
 
-.signin {
-  background-color: $secondary;
-  color: white;
-  border: 2px solid $secondary;
-  margin: 1rem auto;
-  border-radius: 1.5rem;
-  padding: 0.75rem 2rem;
-  width: 12rem;
-}
+      }
 
-.signin:hover {
-  background-color: white;
-  color: black;
-  border: 2px solid $secondary;
-  cursor: pointer;
-}
+      .sign-in-button {
+        width: 200px;
+        height: 40px;
+        padding: 11px 8px;
+        border-color: #757575;
+        border-radius: 5px;
 
-.forget {
-  color: var(--lightgrey);
-  display: flex;
-  justify-content: flex-end;
-}
+        color: #757575;
+        font-weight: 500;
+        font-size: 14px;
+        // font-family: "Roboto", sans-serif;
 
-.forget:hover {
-  color: var(--lightBlue);
-}
+        background-image: url("https://developers.google.com/identity/images/g-logo.png");
+        background-color: #ffffff;
+        background-size: 18px 18px;
+        background-repeat: no-repeat;
+        background-position: 8px 11px;
+        border: 2px solid #ddd;
+      }
 
-.orDiv {
-  height: 3rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
+      .sign-in-button:hover {
+        border: 2px solid #4285f4;
+        cursor: pointer;
+      }
 
-.or {
-  padding: 0px 1rem;
-  color: var(--lightgrey);
-}
+      .signin {
+        background-color: $secondary;
+        color: white;
+        border: 2px solid $secondary;
+        margin: 1rem auto;
+        border-radius: 1.5rem;
+        padding: 0.75rem 2rem;
+        width: 12rem;
+      }
 
-.divider {
-  width: 150px;
-  border-bottom: 2px solid #ddd;
-}
+      .signin:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid $secondary;
+        cursor: pointer;
+      }
 
-.createAccountDiv {
-  padding: 1rem;
-  color: var(--lightgrey);
-}
+      .forget {
+        color: var(--lightgrey);
+        display: flex;
+        justify-content: flex-end;
+        font-size: 0.8rem;
+      }
 
-.createAccount {
-  text-decoration: underline;
-}
+      .forget:hover {
+        color: var(--lightBlue);
+      }
 
-.createAccount:hover {
-  cursor: pointer;
-  color: var(--lightBlue);
+      .orDiv {
+        height: 3rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .or {
+          padding: 0px 1rem;
+          color: var(--lightgrey);
+        }
+
+        .divider {
+          width: 150px;
+          border-bottom: 2px solid #ddd;
+        }
+      }
+
+      .createAccountDiv {
+        padding: 1rem;
+        color: var(--lightgrey);
+
+        .createAccount {
+          text-decoration: underline;
+          & > a:hover {
+            cursor: pointer;
+            color: var(--lightBlue);
+          }
+        }
+      }
+    }
+  }
 }

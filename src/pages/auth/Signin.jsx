@@ -2,9 +2,11 @@ import TextField from '@mui/material/TextField';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import loginFrontPic from "../../assets/images/loginFrontPic.png";
+import { AuthLayout } from '../../layout/auth';
+
 import AuthContext from "../../contexts/AuthContext";
 import { api } from "../../services/api";
+import { Alert } from '@mui/material';
 
 export default function Signin() {
 
@@ -45,55 +47,51 @@ export default function Signin() {
   };
 
   return (
-    <div className="login">
-      <div className="logo">
-        <img className="logoPic" src={loginFrontPic} alt="Front Page"></img>
-      </div>
-      <div className="loginRight">
-        <form onSubmit={submitHandler}>
-          <p>Welcome to {AppName}</p>
-          <h2>Sign in</h2>
-          {error && <div className=''>{error}</div>}
-          <div className="userLogin">
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Email"
-              variant="standard"
-              onChange={(event) => setUsername(event.target.value)}
-              value={username}
-            />
-            <TextField
-              fullWidth
-              id="standard-password-input"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              variant="standard"
-              onChange={(event) => setPassword(event.target.value)}
-              value={password}
-            />
-            <div className="forget">
-              <div>forget password?</div>
-            </div>
-            <div>
-              <button className="signin" onClick={submitHandler}>Sign In</button>
-            </div>
-          </div>
-          <div className="orDiv">
-            <div className="divider"></div>
-            <div className="or">or</div>
-            <div className="divider"></div>
-          </div>
-          <button className="sign-in-button">Sign in with Google</button>
-        </form>
-        <div className="createAccountDiv">
-          New to {AppName}?{" "}
-          <span className="createAccount">
-            <Link to="/createAccount">Create Account</Link>
-          </span>
+    <AuthLayout>
+      <p>Welcome to {AppName}</p>
+      <h1>Sign in</h1>
+
+      <form onSubmit={submitHandler}>
+
+        {error && <Alert severity="error">{error}</Alert>}
+        <div className="userLogin">
+          <TextField
+            fullWidth
+            id="standard-basic"
+            label="Email"
+            onChange={(event) => setUsername(event.target.value)}
+            value={username}
+            variant="outlined"
+
+          />
+          <TextField
+            fullWidth
+            id="standard-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            onChange={(event) => setPassword(event.target.value)}
+            value={password}
+            variant="outlined"
+
+          />
+          <span className="forget">forget password?</span>
+          <button className="btn btn-primary" onClick={submitHandler}>Sign In</button>
         </div>
+      </form>
+
+      <div className="orDiv">
+        <div className="divider"></div>
+        <div className="or">or</div>
+        <div className="divider"></div>
       </div>
-    </div>
+      <button className="sign-in-button">Sign in with Google</button>
+      <div className="createAccountDiv">
+        New to {AppName}?{" "}
+        <span className="createAccount">
+          <Link to="/inscription">Create Account</Link>
+        </span>
+      </div>
+    </AuthLayout>
   );
 }

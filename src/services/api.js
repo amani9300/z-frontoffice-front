@@ -16,7 +16,11 @@ export const api = {
         return axios.post(`${API_ROOT}/products`, product, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, }, })
     },
     Register: async (user) => {
-        return axios.post(`${API_ROOT}/auth/register`, user);
+        try {
+            await axios.post(`${API_ROOT}/auth/register`, user);
+        } catch (e) {
+            throw new Error(e.response.data.message || 'An error has occured');
+        }
     },
     Login: async (user) => {
         return axios.post(`${API_ROOT}/auth/login`, user)
