@@ -41,7 +41,7 @@ export default function App() {
         <Routes>
           <Route path="/auth" element={<Signin />} />
           <Route path="/logout" element={<Signout />} />
-          <Route path="/inscription" element={<Signup />} />
+          <Route path="/register" element={<Signup />} />
           <Route path="*" element={<AuthGuard />} />
         </Routes>
 

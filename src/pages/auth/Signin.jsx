@@ -89,7 +89,7 @@ export default function Signin() {
       <div className="createAccountDiv">
         New to {AppName}?{" "}
         <span className="createAccount">
-          <Link to="/inscription">Create Account</Link>
+          <Link to="/register">Create Account</Link>
         </span>
       </div>
     </AuthLayout>

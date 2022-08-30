@@ -20,7 +20,7 @@ export default function Header({ isLoggedIn }) {
           :
           <>
             <li><NavLink to='/auth'>Sign in</NavLink></li>
-            <li><NavLink to='/inscription'>Register</NavLink></li>
+            <li><NavLink to='/register'>Register</NavLink></li>
           </>
         }
       </ul>
