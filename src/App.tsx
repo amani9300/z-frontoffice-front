@@ -15,7 +15,7 @@ import { AuthGuard } from './contexts/Guard';
 import { Box } from '@mui/material';
 import { Signout } from './pages/auth/Signout';
 
-export default function App() {
+export const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   return (

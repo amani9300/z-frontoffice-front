@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_ROOT = process.env.API_ROOT || "http://localhost:9999";
+const API_ROOT = import.meta.env.API_ROOT || "http://localhost:9999";
 
 export const api = {
     GetProducts: async () => {
