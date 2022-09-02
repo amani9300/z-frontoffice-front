@@ -1,8 +1,15 @@
-import React, { useState } from "react"
-import { CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, InputBase } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
 import Button from "./Button";
 
-export const ConfirmDelete = ({ open, name, id, handleRemove }) => {
+
+type TProps = {
+  open: boolean;
+  name: string;
+  id?: string;
+  handleRemove: Function;
+}
+
+export const ConfirmDelete = ({ open, name, id, handleRemove }: TProps) => {
 
   return (
     <Dialog open={open}>
@@ -13,8 +20,8 @@ export const ConfirmDelete = ({ open, name, id, handleRemove }) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => { handleRemove(id); }} variant="contained" color="secondary" text='Yes'>Yes</Button>
-        <Button onClick={() => { handleRemove();}} autoFocus text='No'>No</Button>
+        <Button onClick={() => { handleRemove(id); }} variant="contained" color="secondary" text='Yes' />
+        <Button onClick={() => { handleRemove(); }} autoFocus text='No' />
       </DialogActions>
     </Dialog>
   )

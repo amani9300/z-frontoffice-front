@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, InputBase } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
-import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import ProductForm from './ProductForm';
-import { Paper, makeStyles, Toolbar } from '@material-ui/core';
+import { Paper, makeStyles } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import './ProductStyle.css';
 import { api } from '../../services/api';
 import { ConfirmDelete } from '../../components/controls/ConfirmDelete';
+import { Product } from '../../models/product';
 
 const style = {
   position: 'absolute',
@@ -51,13 +50,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProductList() {
-  const [product, setProduct] = useState();
-  const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = useState(true);
-  const [remove, setRemove] = useState();
+
+  const [product, setProduct] = useState<Product | undefined>();
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [remove, setRemove] = useState<string | undefined>();
 
   const classes = useStyles();
-  const [listProducts, setlistProducts] = useState([]);
+  const [listProducts, setlistProducts] = useState<Product[]>([]);
 
   // Récuperer la liste des products de l'utilisateur connecté
   useEffect(() => {
@@ -72,16 +72,11 @@ export default function ProductList() {
       .finally(() => setLoading(false))
   }
 
-  // // Supprimer un product
-  const confirmDelete = (product) => {
-    return <ConfirmDelete name={product.name} id={product.id} handleRemove={(id) => console.log(id)} />
-  };
-
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     setRemove(undefined);
     if (id) {
       api.DeleteProduct(id)
-        .then((res) => {
+        .then(() => {
           getProducts();
         })
         .catch((err) => { getProducts(); console.log(err.response) });
@@ -89,7 +84,7 @@ export default function ProductList() {
   }
 
   // Mettre à jours le formulaire
-  const updateForm = (product) => {
+  const updateForm = (product: Product | undefined) => {
     setProduct(product);
     setOpen(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -105,7 +100,7 @@ export default function ProductList() {
           <Typography variant="h6" component="h2" color="primary">Products</Typography>
 
           {/* <Button variant="outlined" color="secondary" startIcon={<AddIcon />} onClick={() => updateForm()}> New Product </Button> */}
-          <button className="btn btn-primary" onClick={() => updateForm()}> + New Product </button>
+          <button className="btn btn-primary" onClick={() => updateForm(undefined)}> + New Product </button>
 
           <Modal open={open} onClose={() => setOpen(false)} arial-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
             <Box sx={style}>

@@ -1,47 +1,31 @@
-import { Button, CircularProgress, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { CircularProgress, Grid } from '@material-ui/core';
 import { Alert } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Controls from '../../components/controls/Controls';
 import { Form } from '../../components/useForm';
+import { Product } from '../../models/product';
 import { api } from '../../services/api';
 
-const useStyles = makeStyles(theme => ({
-  pageContent: {
-    margin: theme.spacing(5),
-    padding: theme.spacing(3)
-  },
-  searchInput: {
-    width: '75%'
-  },
-  newButton: {
-    position: 'absolute',
-    right: '10px'
-  }
-}))
+export default function ProductForm({ product, refresh, close }: { product: Product | undefined, refresh: Function, close: Function }) {
 
+  const [name, setName] = useState<string>('');
+  const [barcode, setBarcode] = useState<string>('');
+  const [id, setId] = useState<string | undefined>();
+  const [reference, setReference] = useState<string>('');
+  const [purchasePrice, setPurchasePrice] = useState<number>(0);
+  const [price, setPrice] = useState<number>(0);
+  const [includesTax, setIncludesTax] = useState<boolean>(false);
+  const [qty, setQty] = useState<number>(0);
+  const [measure, setMeasure] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [vat, setVat] = useState<number>(0);
+  const [brand, setBrand] = useState<string>('');
+  const [supplier, setSupplier] = useState<string>('');
+  const [color, setColor] = useState<string>('');
 
-export default function ProductForm({ product, refresh, close }) {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>();
 
-  const [name, setName] = useState('');
-  const [barcode, setBarcode] = useState('');
-  const [id, setId] = useState('');
-  const [reference, setReference] = useState('');
-  const [purchasePrice, setPurchasePrice] = useState('');
-  const [price, setPrice] = useState('');
-  const [includesTax, setIncludesTax] = useState(false);
-  const [qty, setQty] = useState('');
-  const [measure, setMeasure] = useState('');
-  const [category, setCategory] = useState('');
-  const [vat, setVat] = useState('');
-  const [brand, setBrand] = useState('');
-  const [supplier, setSupplier] = useState('');
-  const [color, setColor] = useState('');
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
-
-  const classes = useStyles();
   useEffect(() => {
     if (!product) return;
     setId(product.id)
@@ -61,13 +45,13 @@ export default function ProductForm({ product, refresh, close }) {
   }, [product])
 
   // Crée un product
-  const submitProduct = (e) => {
+  const submitProduct = (e: any) => {
     e.preventDefault();
 
     setLoading(true);
 
     //si il existe on le met à jour si non on cée un nouveau
-    if (product) {
+    if (product && id) {
       api.UpdateProduct(id, {
         name,
         barcode,
@@ -83,7 +67,7 @@ export default function ProductForm({ product, refresh, close }) {
         supplier,
         color,
       })
-        .then((res) => {
+        .then(() => {
           // setlistProducts((listProducts) => [res.data, ...listProducts]);
           cleanForm();
           if (refresh) refresh();
@@ -106,7 +90,7 @@ export default function ProductForm({ product, refresh, close }) {
         supplier,
         color,
       })
-        .then((res) => {
+        .then(() => {
           // setlistProducts((listProducts) => [res.data, ...listProducts]);
           cleanForm();
           if (refresh) refresh();
@@ -116,20 +100,19 @@ export default function ProductForm({ product, refresh, close }) {
     }
   };
 
-
   return (
     <>
       {error && <Alert severity="error">{error}</Alert>}
 
       <Form onSubmit={submitProduct}>
-        <Grid container rowspacing={1} columnspacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="space-evenly">
+        <Grid container spacing={1} columns={{ xs: 1, sm: 2, md: 3 }} justifyContent="space-evenly">
           <Grid item xs={6} >
             <Controls.Input
               label="Name"
               type="text"
               placeholder="Enter name"
               value={name}
-              onInput={e => setName(e.target.value)}
+              onInput={(e: any) => setName(e.target.value)}
               required
               disabled={loading}
             />
@@ -138,7 +121,7 @@ export default function ProductForm({ product, refresh, close }) {
               type="text"
               placeholder="Enter barcode"
               value={barcode}
-              onInput={e => setBarcode(e.target.value)}
+              onInput={(e: any) => setBarcode(e.target.value)}
               required
               disabled={loading}
             />
@@ -147,7 +130,7 @@ export default function ProductForm({ product, refresh, close }) {
               type="text"
               placeholder="Enter reference"
               value={reference}
-              onInput={e => setReference(e.target.value)}
+              onInput={(e: any) => setReference(e.target.value)}
               required
               disabled={loading}
             />
@@ -156,7 +139,7 @@ export default function ProductForm({ product, refresh, close }) {
               type="number"
               placeholder="Enter purchase price"
               value={purchasePrice}
-              onInput={e => setPurchasePrice(e.target.value)}
+              onInput={(e: any) => setPurchasePrice(e.target.value)}
               required
               disabled={loading}
             />
@@ -165,14 +148,14 @@ export default function ProductForm({ product, refresh, close }) {
               type="number"
               placeholder="Enter price"
               value={price}
-              onInput={e => setPrice(e.target.value)}
+              onInput={(e: any) => setPrice(e.target.value)}
               required
               disabled={loading}
             />
             <Controls.Checkbox
               label="IncludesTax"
               value={includesTax}
-              onChange={e => setIncludesTax(e.target.value)}
+              onChange={(e: any) => setIncludesTax(e.target.value)}
               required
             />
             <Controls.Input
@@ -180,7 +163,7 @@ export default function ProductForm({ product, refresh, close }) {
               type="number"
               placeholder="Enter quantity"
               value={qty}
-              onInput={e => setQty(e.target.value)}
+              onInput={(e: any) => setQty(e.target.value)}
               required
               disabled={loading}
             />
@@ -192,7 +175,7 @@ export default function ProductForm({ product, refresh, close }) {
               type="text"
               value={measure}
               required
-              onInput={e => setMeasure(e.target.value)}
+              onInput={(e: any) => setMeasure(e.target.value)}
               placeholder="UNIT"
               disabled={loading}
             />
@@ -200,7 +183,7 @@ export default function ProductForm({ product, refresh, close }) {
               label="Category"
               type="text"
               value={category}
-              onInput={e => setCategory(e.target.value)}
+              onInput={(e: any) => setCategory(e.target.value)}
               required
               disabled={loading}
             />
@@ -208,7 +191,7 @@ export default function ProductForm({ product, refresh, close }) {
               label="VAT"
               type="number"
               value={vat}
-              onInput={e => setVat(e.target.value)}
+              onInput={(e: any) => setVat(e.target.value)}
               required
               disabled={loading}
             />
@@ -216,24 +199,23 @@ export default function ProductForm({ product, refresh, close }) {
               label="Brand"
               type="text"
               value={brand}
-              onInput={e => setBrand(e.target.value)}
+              onInput={(e: any) => setBrand(e.target.value)}
               disabled={loading}
             />
             <Controls.Input
               label="Supplier"
               type="text"
               value={supplier}
-              onInput={e => setSupplier(e.target.value)}
+              onInput={(e: any) => setSupplier(e.target.value)}
               disabled={loading}
             />
             <Controls.Input
               label="Color"
               type="text"
               value={color}
-              onInput={e => setColor(e.target.value)}
+              onInput={(e: any) => setColor(e.target.value)}
               disabled={loading}
             />
-
 
           </Grid>
         </Grid>
@@ -256,17 +238,17 @@ export default function ProductForm({ product, refresh, close }) {
     setName("");
     setBarcode("");
     setReference("");
-    setPurchasePrice("");
-    setPrice("");
+    setPurchasePrice(0);
+    setPrice(0);
     setIncludesTax(false);
-    setQty("");
+    setQty(0);
     setMeasure("");
     setCategory("");
-    setVat("");
+    setVat(0);
     setBrand("");
     setSupplier("");
     setColor("");
-    setError();
-    setLoading();
+    setError(undefined);
+    setLoading(false);
   }
 }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, makeStyles } from '@material-ui/core';
 
 
@@ -21,9 +20,14 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function ActionButton(props) {
+type TProps = {
+    color: "root" | "secondary" | "primary";
+    children: JSX.Element[] | JSX.Element;
+    onClick: any;
+}
 
-    const { color, children, onClick } = props;
+export default function ActionButton({ color, children, onClick }: TProps) {
+
     const classes = useStyles();
 
     return (

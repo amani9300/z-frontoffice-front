@@ -1,12 +1,11 @@
-import loginFrontPic from "../assets/images/loginFrontPic.png";
 
-export const AuthLayout = ({ children }) => {
+export const AuthLayout = ({ children }: { children: JSX.Element[] }) => {
 
   return (
     <div className="login">
       <div className="login-container">
         <div className="logo">
-          <img className="logoPic" src={loginFrontPic} alt="Front Page"></img>
+          <img className="logoPic" src='/src/assets/images/loginFrontPic.png' alt="Front Page"></img>
         </div>
         <div className="loginRight">
           {children}

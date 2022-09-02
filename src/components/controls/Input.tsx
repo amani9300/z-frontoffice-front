@@ -1,9 +1,16 @@
 import React from 'react'
 import { TextField } from '@material-ui/core';
 
-export default function Input(props) {
+type TProps = {
+    name: string;
+    label: string;
+    value: string;
+    error: any;
+    onChange: Function;
+}
 
-    const { name, label, value,error=null, onChange, ...other } = props;
+export default function Input({ name, label, value, error = null, onChange, ...other }: TProps & any) {
+
     return (
         <TextField
             variant="outlined"
@@ -12,7 +19,7 @@ export default function Input(props) {
             value={value}
             onChange={onChange}
             {...other}
-            {...(error && {error:true,helperText:error})}
+            {...(error && { error: true, helperText: error })}
         />
     )
 }

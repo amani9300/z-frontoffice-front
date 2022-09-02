@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { AuthLayout } from '../../layout/auth';
@@ -12,18 +12,18 @@ export default function Signin() {
 
   const AppName = "Centimoo Stock Management";
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setloading] = useState(false);
-  const [error, setError] = useState();
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setloading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>();
 
   const { setToken } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: any) => {
     e.preventDefault();
-    setError();
+    setError(undefined);
     setloading(true);
     api.Login({ username, password })
       .then((res) => {
@@ -34,7 +34,7 @@ export default function Signin() {
           return;
         }
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error('error: ', err);
         try {
           const e = err.response.data.message;

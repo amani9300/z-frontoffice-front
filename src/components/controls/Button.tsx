@@ -14,9 +14,16 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function Button(props) {
+type TProps = {
+    text: string;
+    size?: "medium" | "large" | "small";
+    color: "inherit" | "default" | "primary" | "secondary" | undefined;
+    variant: "text" | "outlined" | "contained" | undefined;
+    onClick: any;
+}
 
-    const { text, size, color, variant, onClick, ...other } = props
+export default function Button({ text, size, color, variant, onClick, ...other }: TProps & any) {
+
     const classes = useStyles();
 
     return (

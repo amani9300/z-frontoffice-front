@@ -1,4 +1,3 @@
-import React from 'react'
 import { Dialog, DialogTitle, DialogContent, makeStyles, Typography } from '@material-ui/core';
 import Controls from "./controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
@@ -15,9 +14,14 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function Modal(props) {
+type TProps = {
+    children: JSX.Element[];
+    openModal: boolean;
+    setOpenModal: Function;
+}
 
-    const { title, children, openModal, setOpenModal } = props;
+export default function Modal({children, openModal, setOpenModal}: TProps) {
+
     const classes = useStyles();
 
     return (

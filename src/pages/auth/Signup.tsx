@@ -1,5 +1,5 @@
 import { TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { AuthLayout } from '../../layout/auth';
@@ -8,15 +8,15 @@ import { Alert } from "@mui/material";
 const AppName = "Centimoo Stock Management";
 
 export default function Signup() {
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setpassword] = useState("");
-  const [error, setError] = useState();
+  const [lastName, setLastName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setpassword] = useState<string>("");
+  const [error, setError] = useState<string | undefined>();
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:any) => {
     e.preventDefault();
     api.Register({ lastName, firstName, username, password })
       .then((res) => navigate("/auth"))
@@ -30,7 +30,7 @@ export default function Signup() {
 
       <form onSubmit={handleSubmit}>
 
-      {error && <Alert className="alert" severity="error">{error}</Alert>}
+        {error && <Alert className="alert" severity="error">{error}</Alert>}
         <div className="userLogin">
 
           <TextField

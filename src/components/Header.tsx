@@ -1,9 +1,6 @@
-import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Header({ isLoggedIn }) {
-
-  React.useEffect(() => console.log(isLoggedIn));
+export default function Header({ isLoggedIn }: { isLoggedIn: boolean }) {
 
   return (
     <header className='header'>

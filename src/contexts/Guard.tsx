@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import ProductList from '../pages/product/ProductList';
 import AuthContext from './AuthContext';
