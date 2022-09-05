@@ -1,6 +1,5 @@
 import axios from "axios"
 import { Product } from "../models/product";
-import { User } from "../models/user";
 
 const API_ROOT = import.meta.env.API_ROOT || "http://localhost:9999";
 

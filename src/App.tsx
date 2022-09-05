@@ -1,22 +1,18 @@
 import './assets/css/App.css';
 
-import React, { useEffect, useState } from 'react';
-import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import AuthContext from './contexts/AuthContext';
 import Signup from './pages/auth/Signup';
 import Signin from './pages/auth/Signin';
-import AppBar from "@material-ui/core/AppBar";
-import { Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { InputBase } from "@material-ui/core";
-import SearchIcon from '@material-ui/icons/Search';
 
 import { AuthGuard } from './contexts/Guard';
-import { Box } from '@mui/material';
 import { Signout } from './pages/auth/Signout';
 
 export const App = () => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  
+  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
 
   return (
     <div className="App">

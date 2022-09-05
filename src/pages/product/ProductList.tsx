@@ -10,7 +10,6 @@ import { Paper, makeStyles } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import CloseIcon from '@material-ui/icons/Close';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import './ProductStyle.css';
 import { api } from '../../services/api';
 import { ConfirmDelete } from '../../components/controls/ConfirmDelete';
 import { Product } from '../../models/product';
@@ -118,7 +117,6 @@ export default function ProductList() {
           <table className="styled-table">
             <thead >
               <tr >
-                <th >Id</th>
                 <th >Name</th>
                 <th >Barcode</th>
                 <th >Reference</th>
@@ -139,7 +137,6 @@ export default function ProductList() {
             <tbody>
               {listProducts.map((product, i) => (
                 <tr key={i} >
-                  <td >{product.id}</td>
                   <td >{product.name}</td>
                   <td >{product.barcode}</td>
                   <td >{product.reference}</td>
