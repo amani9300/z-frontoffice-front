@@ -1,7 +1,7 @@
 import axios from "axios"
 import { Product } from "../models/product";
 
-const API_ROOT = import.meta.env.API_ROOT || "http://localhost:9999";
+const API_ROOT = import.meta.env.VITE_API_ROOT || "http://localhost:9999";
 
 export const api = {
     GetProducts: async () => {
