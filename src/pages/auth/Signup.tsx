@@ -36,8 +36,8 @@ export default function Signup() {
           <TextField
             fullWidth
             id="standard-basic"
-            label="Enter your name"
-            onChange={(e) => setLastName(e.target.value)}
+            label="Enter your first name"
+            onChange={(e) => setFirstName(e.target.value)}
             value={lastName}
             variant="outlined"
 
@@ -45,8 +45,8 @@ export default function Signup() {
           <TextField
             fullWidth
             id="standard-basic"
-            label="Enter your first name"
-            onChange={(e) => setFirstName(e.target.value)}
+            label="Enter your last name"
+            onChange={(e) => setLastName(e.target.value)}
             value={firstName}
             variant="outlined"
 
