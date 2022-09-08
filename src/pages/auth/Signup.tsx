@@ -26,7 +26,7 @@ export default function Signup() {
   return (
     <AuthLayout>
       <p>Welcome to {AppName}</p>
-      <h1>Sign up</h1>
+      <h1>Register</h1>
 
       <form onSubmit={handleSubmit}>
 
@@ -36,7 +36,7 @@ export default function Signup() {
           <TextField
             fullWidth
             id="standard-basic"
-            label="Entrez votre nom"
+            label="Enter your name"
             onChange={(e) => setLastName(e.target.value)}
             value={lastName}
             variant="outlined"
@@ -45,7 +45,7 @@ export default function Signup() {
           <TextField
             fullWidth
             id="standard-basic"
-            label="Entrez votre prénom"
+            label="Enter your first name"
             onChange={(e) => setFirstName(e.target.value)}
             value={firstName}
             variant="outlined"
@@ -54,7 +54,7 @@ export default function Signup() {
           <TextField
             fullWidth
             id="standard-basic"
-            label="Entrez votre Adresse Email"
+            label="Enter your email adress"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
             variant="outlined"
@@ -62,14 +62,14 @@ export default function Signup() {
           <TextField
             fullWidth
             id="standard-basic"
-            label="Entrez votre mot de passe"
+            label="Enter your password"
             onChange={(e) => setpassword(e.target.value)}
             value={password}
             variant="outlined"
             type="password"
           />
           <div className="button-container">
-            <button className="btn btn-primary" >S'inscrire</button>
+            <button className="btn btn-primary" >Register</button>
           </div>
 
         </div>
