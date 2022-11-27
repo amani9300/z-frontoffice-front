@@ -12,10 +12,10 @@ export const AuthGuard = () => {
 
     return (
         <Routes>
-            {/* <Route path="/produit" element={<Produit />} /> */}
+          
             <Route path="/products" element={<ProductList />} />
             <Route path="/" element={<Navigate to='/products' />} />
-            {/* <Route path="/produits/:id" element={<DetailProduit />} /> */}
+          
         </Routes>
     )
 }

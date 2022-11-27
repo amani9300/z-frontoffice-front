@@ -1,9 +1,7 @@
 import TextField from '@mui/material/TextField';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { AuthLayout } from '../../layout/auth';
-
 import AuthContext from "../../contexts/AuthContext";
 import { api } from "../../services/api";
 import { Alert } from '@mui/material';

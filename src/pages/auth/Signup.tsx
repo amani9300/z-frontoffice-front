@@ -33,6 +33,16 @@ export default function Signup() {
         {error && <Alert className="alert" severity="error">{error}</Alert>}
         <div className="userLogin">
 
+         
+          <TextField
+            fullWidth
+            id="standard-basic"
+            label="Enter your last name"
+            onChange={(e) => setLastName(e.target.value)}
+            value={firstName}
+            variant="outlined"
+
+          /> 
           <TextField
             fullWidth
             id="standard-basic"
@@ -42,15 +52,7 @@ export default function Signup() {
             variant="outlined"
 
           />
-          <TextField
-            fullWidth
-            id="standard-basic"
-            label="Enter your last name"
-            onChange={(e) => setLastName(e.target.value)}
-            value={firstName}
-            variant="outlined"
 
-          />
           <TextField
             fullWidth
             id="standard-basic"

@@ -220,13 +220,13 @@ export default function ProductForm({ product, refresh, close }: { product: Prod
           </Grid>
         </Grid>
 
-        {/* <Button type="submit" variant="contained" color="inherit" className={classes.button} disabled={loading} style={{ marginRight: '20px' }}> */}
+        
         <button type="submit" className="btn btn-primary" disabled={loading} style={{ marginRight: '20px' }}>
           {loading && <CircularProgress size={14} style={{ marginRight: '10px' }} />} Submit
         </button>
         {/* </Button> */}
 
-        {/* <Button type="button" variant="contained" color="inherit" onClick={() => { if (close) close() }} disabled={loading}> Close </Button> */}
+       
         <button type="button" className="btn" onClick={() => { if (close) close() }} disabled={loading}> Close </button>
 
       </Form>

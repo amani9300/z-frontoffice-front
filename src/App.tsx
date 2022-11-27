@@ -16,20 +16,7 @@ export const App = () => {
 
   return (
     <div className="App">
-      {/* <AppBar component="nav">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}          >
-            Centimoo
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }} className="navbar">
-            {['Contact', 'Products', 'Logout'].map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
-          </Box>
-        </Toolbar>
-      </AppBar> */}
+     
 
       <AuthContext.Provider value={{ token, setToken }}>
         <Header isLoggedIn={!!token === true} />
