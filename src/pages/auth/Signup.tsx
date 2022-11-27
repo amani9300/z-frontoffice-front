@@ -39,7 +39,7 @@ export default function Signup() {
             id="standard-basic"
             label="Enter your last name"
             onChange={(e) => setLastName(e.target.value)}
-            value={firstName}
+            value={lastName}
             variant="outlined"
 
           /> 
@@ -48,7 +48,7 @@ export default function Signup() {
             id="standard-basic"
             label="Enter your first name"
             onChange={(e) => setFirstName(e.target.value)}
-            value={lastName}
+            value={firstName}
             variant="outlined"
 
           />
