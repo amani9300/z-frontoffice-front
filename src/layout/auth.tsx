@@ -5,7 +5,7 @@ export const AuthLayout = ({ children }: { children: JSX.Element[] }) => {
     <div className="login">
       <div className="login-container">
         <div className="logo">
-          <img className="logoPic" src='/public/json/homePage.png' alt="home Page"></img>
+          <img className="logoPic" src='/public/homePage.png' alt="Front Page"></img>
         </div>
         <div className="loginRight">
           {children}
